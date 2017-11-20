@@ -50,12 +50,12 @@
     }];
     
     
-    [self presentViewController:fii animated:YES completion:nil];
+    [self.navigationController pushViewController:fii animated:YES];
 }
 - (IBAction)openTop:(id)sender{
     BannerViewController *banner = [[BannerViewController alloc] init];
     
-    [self presentViewController:banner animated:YES completion:nil];
+    [self.navigationController pushViewController:banner animated:YES];
 }
 
 - (UIView *)headerOfFiixiableScroll{

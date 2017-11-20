@@ -24,9 +24,7 @@
     }
     return self;
 }
-- (void) prepareLayout{
-    [super prepareLayout];
-}
+
 
 -(CGPoint)targetAContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity{
     //proposedContentOffset是没有设置对齐时本应该停下的位置（collectionView落在屏幕左上角的点坐标）
