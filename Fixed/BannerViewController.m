@@ -22,9 +22,10 @@
 @property (nonatomic, assign) NSInteger itemCount;
 
 @property (nonatomic, assign) NSInteger selectedIndex;
-@property (nonatomic, assign) BOOL loop;
+@property (nonatomic, assign) BOOL clockwise;
 @property (nonatomic, copy) NSArray *dataSource;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) BOOL timerStart;
 
 @end
 
@@ -53,7 +54,7 @@
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.alwaysBounceHorizontal = YES;
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"content"];
-
+    _collectionView.contentInset = UIEdgeInsetsMake(0, 50, 0, 50);
     [self.view addSubview:_collectionView];
     self.selectedIndex = 2;
     [_collectionView performBatchUpdates:^{
@@ -64,17 +65,9 @@
         NSLog(@"%@", _collectionView.visibleCells);
         [self scrollLayout:_collectionView loop:NO];
     }];
-    
-    _timer = [NSTimer scheduledTimerWithTimeInterval:3.f repeats:YES block:^(NSTimer * _Nonnull timer) {
-        [_collectionView performBatchUpdates:^{
-            [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex + 1  inSection:0]
-                                    atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                                            animated:YES];
-        } completion:^(BOOL finished) {
-            NSLog(@"%@", _collectionView.visibleCells);
-        //    [self scrollLayout:_collectionView loop:NO];
-            self.selectedIndex++;
-        }];
+    _timerStart = YES;
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.f repeats:YES block:^(NSTimer * _Nonnull timer) {
+        [self scrollToIndex:self.selectedIndex + 1 animted:YES];
     }];
 }
 
@@ -92,7 +85,7 @@
 #pragma mark -- UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _dataSource.count;
+    return _dataSource.count ;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -102,16 +95,17 @@
     UILabel *label = [cell viewWithTag:(NSInteger)@"tag"];
     if (!label){
         label = [[UILabel alloc] initWithFrame:cell.bounds];
-        label.textColor = UIColorFromRGB(arc4random());
+        label.textColor = UIColorFromRGB(0xffffff);
         label.textAlignment = NSTextAlignmentCenter;
         label.tag = (NSInteger)@"tag";
         [cell addSubview:label];
+
     }
     label.text = _dataSource[indexPath.row];
+    cell.backgroundColor = UIColorFromRGB(arc4random());
 
-    cell.backgroundColor = UIColorFromRGB(0xff0000);
     cell.layer.cornerRadius = 10;
-    cell.layer.shadowColor = UIColorFromRGB(arc4random()).CGColor;
+    cell.layer.shadowColor = UIColorFromRGB(0xffffff).CGColor;
     cell.layer.shadowOpacity = 1.f;
     cell.layer.shadowOffset = CGSizeMake(1, 1);
     return cell;
@@ -125,9 +119,7 @@
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     return UIEdgeInsetsZero;
 }
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-}
+
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
     
     NSArray<UICollectionViewCell *> *visibleCells = self.collectionView.visibleCells;
@@ -169,15 +161,17 @@
     CGFloat x = CGRectGetMidX(targetCell.frame) - CGRectGetWidth(scrollView.bounds)/2;
     *targetContentOffset = CGPointMake(x, scrollView.contentOffset.y);
 }
-- (void)scrollToIndex:(NSInteger)idx from:(NSInteger)from{
+- (void)scrollToIndex:(NSInteger)idx animted:(BOOL)animated{
     
     CGFloat x = (idx)*(_itemSize.width) + _itemSize.width/2 - CGRectGetWidth(_collectionView.bounds)/2;
     [_collectionView performBatchUpdates:^{
-        [_collectionView setContentOffset:CGPointMake(x, 0) animated:NO];
+        [_collectionView setContentOffset:CGPointMake(x, 0) animated:animated];
     } completion:^(BOOL finished) {
-        NSLog(@"%@", _collectionView.visibleCells);
-        [self scrollLayout:_collectionView loop:NO];
         self.selectedIndex = idx;
+        [self scrollLayout:_collectionView loop:NO];
+        if (animated){
+            [self scrollViewDidEndScroll];
+        }
     }];
     
 }
@@ -197,30 +191,49 @@ static CGPoint lastPoint;
         CGFloat scale = 1 - multiple* off/(CGRectGetWidth(scrollView.frame)/2);
         obj.transform = CGAffineTransformMakeScale(scale, scale);
         
-        if (fabs(scale - 1) < 0.05f && loop){
-            NSIndexPath *indexPath = [_collectionView indexPathForCell:obj];
-
-            if (lastPoint.x > scrollView.contentOffset.x){
-                //向右滑动
-                if (indexPath.row == 2 && self.selectedIndex == 2){
-                    NSLog(@"向右滑动 到达初始");
-                    NSLog(@"scale:%lf", scale);
-
-                    [self scrollToIndex:_itemCount - 2 from:2];
-                }
-
-            }else{
-                //向左滑动
-                if (indexPath.row == _itemCount - 2 && self.selectedIndex == _itemCount - 2){
-                    NSLog(@"向左滑动到达末尾");
-                    NSLog(@"scale:%lf", scale);
-
-                    [self scrollToIndex:2 from:_itemCount - 2];
-
-                }
-            }
-        }
     }];
     lastPoint = scrollView.contentOffset;
 }
+
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    // 停止类型1、停止类型2
+    BOOL scrollToScrollStop = !scrollView.tracking && !scrollView.dragging &&    !scrollView.decelerating;
+    if (scrollToScrollStop) {
+        [self scrollViewDidEndScroll];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        // 停止类型3
+        BOOL dragToDragStop = scrollView.tracking && !scrollView.dragging && !scrollView.decelerating;
+        if (dragToDragStop) {
+            [self scrollViewDidEndScroll];
+        }
+    }
+}
+
+#pragma mark - scrollView 停止滚动监测
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [_timer setFireDate:[NSDate distantFuture]];
+    _timerStart = NO;
+
+}
+- (void)scrollViewDidEndScroll {
+    if (!_timerStart){
+        _timerStart = YES;
+       [_timer setFireDate:[NSDate distantPast]];
+    }
+    NSLog(@"%lu : %lu", self.selectedIndex, _dataSource.count);
+
+    if (self.selectedIndex == 2 && !_clockwise){
+     //   [self scrollToIndex:_dataSource.count - 2 animted:NO];
+
+    }else if(self.selectedIndex == _dataSource.count - 1 && !_clockwise){
+        NSLog(@"向左滑动到达末尾");
+        [self scrollToIndex:2 animted:NO];
+    }
+}
+
 @end
