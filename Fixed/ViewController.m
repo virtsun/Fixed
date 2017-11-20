@@ -13,6 +13,7 @@
 #import "HFFiixableBaseScrollViewController.h"
 #import "UIScrollView+Fiixable.h"
 #import <MJRefresh/MJRefresh.h>
+#import "BannerViewController.h"
 
 @interface ViewController ()<HFFiixableScrollViewDataSource,UIScrollViewDelegate,TYTabPagerControllerDataSource, TYTabPagerControllerDelegate, HFFiixableScrollViewDelegate>
 
@@ -52,7 +53,9 @@
     [self presentViewController:fii animated:YES completion:nil];
 }
 - (IBAction)openTop:(id)sender{
-  
+    BannerViewController *banner = [[BannerViewController alloc] init];
+    
+    [self presentViewController:banner animated:YES completion:nil];
 }
 
 - (UIView *)headerOfFiixiableScroll{
