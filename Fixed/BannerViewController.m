@@ -172,22 +172,13 @@
 - (void)scrollToIndex:(NSInteger)idx from:(NSInteger)from{
     
     CGFloat x = (idx)*(_itemSize.width) + _itemSize.width/2 - CGRectGetWidth(_collectionView.bounds)/2;
-    NSLog(@"target === %f", x);
-    CGFloat x1 = (from)*(_itemSize.width) + _itemSize.width/2 - CGRectGetWidth(_collectionView.bounds)/2;
-
     [_collectionView performBatchUpdates:^{
-        [_collectionView setContentOffset:CGPointMake(x1, 0) animated:YES];
+        [_collectionView setContentOffset:CGPointMake(x, 0) animated:NO];
     } completion:^(BOOL finished) {
-        [_collectionView performBatchUpdates:^{
-            [_collectionView setContentOffset:CGPointMake(x, 0) animated:NO];
-        } completion:^(BOOL finished) {
-            NSLog(@"%@", _collectionView.visibleCells);
-            [self scrollLayout:_collectionView loop:NO];
-            self.selectedIndex = idx;
-        }];
+        NSLog(@"%@", _collectionView.visibleCells);
+        [self scrollLayout:_collectionView loop:NO];
+        self.selectedIndex = idx;
     }];
-    
-    
     
 }
 
