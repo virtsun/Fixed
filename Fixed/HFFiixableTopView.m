@@ -7,8 +7,8 @@
 //
 
 #import "HFFiixableTopView.h"
-#import "SLGalleryLayout.h"
 #import "UIView+Ext.h"
+#import "HFLoopBannerView.h"
 
 #ifndef RGBACOLOR
 #define UIColorFromRGBA(rgbValue, a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
@@ -20,7 +20,7 @@
 @end
 
 
-@interface HFFiixableTopView ()<UITableViewDataSource, UITableViewDelegate>
+@interface HFFiixableTopView ()<UITableViewDataSource, UITableViewDelegate, HFLoopBannerDataSource>
 
 @property(nonatomic, strong) UIView *tableViewHeader;
 @property(nonatomic, strong) UILabel *tipLabel;
@@ -35,6 +35,7 @@
     
     if (self = [super initWithFrame:frame style:style]){
         [self setupTableView];
+        [self setBanner];
     }
     return self;
 }
@@ -69,14 +70,48 @@
     
     self.contentInset = UIEdgeInsetsMake(CGRectGetHeight(_tipLabel.bounds), 0, 0, 0);
     
-    UIView *tableHeader = [UIView new];
-    tableHeader.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), 30);
-    tableHeader.backgroundColor = UIColorFromRGB(arc4random());
-    
-    self.tableHeaderView = tableHeader;
 
 }
 
+- (void)setBanner{
+    HFLoopBannerView *banner = [[HFLoopBannerView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 200)];
+    
+    [banner registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"eeee"];
+    
+    banner.dataSource = self;
+    banner.autoLoopTimes = 3;
+    
+    self.tableHeaderView = banner;
+    
+}
+- (NSInteger)numberOfBannerCount{
+    return 6;
+}
+- (CGSize)sizeOfBanner{
+    return CGSizeMake(300, 160);
+}
+- (UICollectionViewCell *)bannerView:(HFLoopBannerView *)bannerView
+                        ReusableView:(UICollectionViewCell *)reusableView
+                             atIndex:(NSInteger)index{
+    
+    UILabel *label = [reusableView viewWithTag:(NSInteger)@"tag"];
+    if (!label){
+        label = [[UILabel alloc] initWithFrame:reusableView.bounds];
+        label.textColor = UIColorFromRGB(arc4random());
+        label.textAlignment = NSTextAlignmentCenter;
+        label.tag = (NSInteger)@"tag";
+        [reusableView addSubview:label];
+    }
+    label.text = [NSString stringWithFormat:@"%lu",index];
+    
+    reusableView.backgroundColor = UIColorFromRGB(arc4random());
+    reusableView.layer.cornerRadius = 10;
+    reusableView.layer.shadowColor = UIColorFromRGB(arc4random()).CGColor;
+    reusableView.layer.shadowOpacity = 1.f;
+    reusableView.layer.shadowOffset = CGSizeMake(1, 1);
+    
+    return reusableView;
+}
 #pragma mark --
 #pragma mark -- UITableView
 

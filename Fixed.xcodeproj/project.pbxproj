@@ -14,10 +14,9 @@
 		D4E0CA841FBA8DDD0004E53B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4E0CA831FBA8DDD0004E53B /* Assets.xcassets */; };
 		D4E0CA871FBA8DDD0004E53B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4E0CA851FBA8DDD0004E53B /* LaunchScreen.storyboard */; };
 		D4E0CA8A1FBA8DDD0004E53B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA891FBA8DDD0004E53B /* main.m */; };
-		D4E0CA921FBA8E400004E53B /* HFFiixableScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA911FBA8E400004E53B /* HFFiixableScrollViewController.m */; };
+		D4E0CA921FBA8E400004E53B /* HFFiixableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA911FBA8E400004E53B /* HFFiixableScrollView.m */; };
 		D4E0CA951FBA965D0004E53B /* UIView+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA931FBA965D0004E53B /* UIView+Ext.m */; };
 		D4E0CA981FBC11690004E53B /* HFFiixableTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA971FBC11690004E53B /* HFFiixableTopView.m */; };
-		D4E0CA9B1FBC13770004E53B /* SLGalleryLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA9A1FBC13770004E53B /* SLGalleryLayout.m */; };
 		D4E0CAB01FBE80780004E53B /* HFFiixableBaseScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAAF1FBE80780004E53B /* HFFiixableBaseScrollViewController.m */; };
 		D4E0CAB31FBE8B990004E53B /* UIScrollView+Fiixable.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAB21FBE8B990004E53B /* UIScrollView+Fiixable.m */; };
 		D4E0CAB61FC27AEE0004E53B /* HFLoopBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAB51FC27AEE0004E53B /* HFLoopBannerView.m */; };
@@ -37,14 +36,12 @@
 		D4E0CA861FBA8DDD0004E53B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D4E0CA881FBA8DDD0004E53B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4E0CA891FBA8DDD0004E53B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D4E0CA901FBA8E400004E53B /* HFFiixableScrollViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFiixableScrollViewController.h; sourceTree = "<group>"; };
-		D4E0CA911FBA8E400004E53B /* HFFiixableScrollViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFiixableScrollViewController.m; sourceTree = "<group>"; };
+		D4E0CA901FBA8E400004E53B /* HFFiixableScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFiixableScrollView.h; sourceTree = "<group>"; };
+		D4E0CA911FBA8E400004E53B /* HFFiixableScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFiixableScrollView.m; sourceTree = "<group>"; };
 		D4E0CA931FBA965D0004E53B /* UIView+Ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Ext.m"; sourceTree = "<group>"; };
 		D4E0CA941FBA965D0004E53B /* UIView+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Ext.h"; sourceTree = "<group>"; };
 		D4E0CA961FBC11690004E53B /* HFFiixableTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFiixableTopView.h; sourceTree = "<group>"; };
 		D4E0CA971FBC11690004E53B /* HFFiixableTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFiixableTopView.m; sourceTree = "<group>"; };
-		D4E0CA991FBC13770004E53B /* SLGalleryLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGalleryLayout.h; sourceTree = "<group>"; };
-		D4E0CA9A1FBC13770004E53B /* SLGalleryLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLGalleryLayout.m; sourceTree = "<group>"; };
 		D4E0CAAE1FBE80780004E53B /* HFFiixableBaseScrollViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFiixableBaseScrollViewController.h; sourceTree = "<group>"; };
 		D4E0CAAF1FBE80780004E53B /* HFFiixableBaseScrollViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFiixableBaseScrollViewController.m; sourceTree = "<group>"; };
 		D4E0CAB11FBE8B990004E53B /* UIScrollView+Fiixable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Fiixable.h"; sourceTree = "<group>"; };
@@ -114,10 +111,8 @@
 				D4E0CA851FBA8DDD0004E53B /* LaunchScreen.storyboard */,
 				D4E0CA881FBA8DDD0004E53B /* Info.plist */,
 				D4E0CA891FBA8DDD0004E53B /* main.m */,
-				D4E0CA991FBC13770004E53B /* SLGalleryLayout.h */,
-				D4E0CA9A1FBC13770004E53B /* SLGalleryLayout.m */,
-				D4E0CA901FBA8E400004E53B /* HFFiixableScrollViewController.h */,
-				D4E0CA911FBA8E400004E53B /* HFFiixableScrollViewController.m */,
+				D4E0CA901FBA8E400004E53B /* HFFiixableScrollView.h */,
+				D4E0CA911FBA8E400004E53B /* HFFiixableScrollView.m */,
 				D4E0CA961FBC11690004E53B /* HFFiixableTopView.h */,
 				D4E0CA971FBC11690004E53B /* HFFiixableTopView.m */,
 				D4E0CAAE1FBE80780004E53B /* HFFiixableBaseScrollViewController.h */,
@@ -253,8 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4E0CAB31FBE8B990004E53B /* UIScrollView+Fiixable.m in Sources */,
-				D4E0CA9B1FBC13770004E53B /* SLGalleryLayout.m in Sources */,
-				D4E0CA921FBA8E400004E53B /* HFFiixableScrollViewController.m in Sources */,
+				D4E0CA921FBA8E400004E53B /* HFFiixableScrollView.m in Sources */,
 				D4E0CAB01FBE80780004E53B /* HFFiixableBaseScrollViewController.m in Sources */,
 				D4E0CAB61FC27AEE0004E53B /* HFLoopBannerView.m in Sources */,
 				D4E0CA951FBA965D0004E53B /* UIView+Ext.m in Sources */,

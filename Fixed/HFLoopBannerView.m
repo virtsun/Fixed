@@ -7,7 +7,6 @@
 //
 
 #import "HFLoopBannerView.h"
-#import "SLGalleryLayout.h"
 
 
 #define MAX_COUNT 999
@@ -80,7 +79,6 @@
                                         atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                                 animated:YES];
             } completion:^(BOOL finished) {
-                //    [self scrollLayout:_collectionView loop:NO];
                 self.selectedIndex++;
                 [self scrollViewDidEndScroll];
             }];

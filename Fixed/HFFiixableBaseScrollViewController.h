@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol FiixableBaseScrollDelegate<UIScrollViewDelegate>
+@optional
+- (void)fiiableCurrentScrollView:(UIScrollView *)scrollview;
+
+@end
 
 @interface HFFiixableBaseScrollViewController : UIViewController
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) id<UIScrollViewDelegate> delegate;
+@property (nonatomic, weak) id<FiixableBaseScrollDelegate> delegate;
 
 @end

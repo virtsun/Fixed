@@ -6,13 +6,13 @@
 //  Copyright © 2017年 l.t.zero. All rights reserved.
 //
 
-#import "HFFiixableScrollViewController.h"
+#import "HFFiixableScrollView.h"
 #import "UIView+Ext.h"
 #import "UIScrollView+Fiixable.h"
 
 #define HFFiixableScrollViewMinOffsetY (-1100)
 
-@interface HFFiixableScrollViewController()
+@interface HFFiixableScrollView()
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *headerView;
@@ -23,12 +23,12 @@
 
 @end
 
-@implementation HFFiixableScrollViewController
+@implementation HFFiixableScrollView
 
 
-- (id)init{
-    if (self = [super init]){
-        self.view.backgroundColor = [UIColor whiteColor];
+- (id)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]){
+        self.backgroundColor = [UIColor whiteColor];
         [self setupScene];
     }
     return self;
@@ -63,21 +63,24 @@
     }
 
     _scrollView.delegate = self;
-    [self.view addSubview:_scrollView];
+    [self addSubview:_scrollView];
     
     
     _backToTopButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _backToTopButton.frame = CGRectMake(10, CGRectGetHeight(self.view.bounds) - 60, 50, 50);
+    _backToTopButton.frame = CGRectMake(10, CGRectGetHeight(self.bounds) - 60, 50, 50);
     [_backToTopButton setTitle:@"回" forState:UIControlStateNormal];
     [_backToTopButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     _backToTopButton.hidden = YES;
 
     [_backToTopButton addTarget:self action:@selector(backToTop:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_backToTopButton];
+    [self addSubview:_backToTopButton];
 }
-
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    [self reloadlayout];
+}
 - (void)reloadlayout{
-    _scrollView.frame = self.view.bounds;
+    _scrollView.frame = self.bounds;
 
     if ([_dataSource respondsToSelector:@selector(headerOfFiixiableScroll)]){
 
@@ -100,7 +103,7 @@
                                         CGRectGetWidth(_scrollView.bounds), CGRectGetHeight(_contentView.bounds));
     }
     
-    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetMaxY(_contentView.frame));
+    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.bounds), CGRectGetMaxY(_contentView.frame));
 }
 
 - (void)reloadData{

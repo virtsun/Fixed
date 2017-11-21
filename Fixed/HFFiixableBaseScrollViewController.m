@@ -46,7 +46,13 @@
     
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"content"];
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    if ([self.delegate respondsToSelector:@selector(fiiableCurrentScrollView:)]){
+        [self.delegate fiiableCurrentScrollView:_collectionView];
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

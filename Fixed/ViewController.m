@@ -7,28 +7,26 @@
 //
 
 #import "ViewController.h"
-#import "HFFiixableScrollViewController.h"
+#import "HFFiixableScrollView.h"
 #import <TYTabPagerController.h>
 #import "HFFiixableTopView.h"
 #import "HFFiixableBaseScrollViewController.h"
 #import "UIScrollView+Fiixable.h"
 #import <MJRefresh/MJRefresh.h>
-#import "HFLoopBannerView.h"
 
 @interface ViewController ()
 <HFFiixableScrollViewDataSource,
-UIScrollViewDelegate,
+FiixableBaseScrollDelegate,
 TYTabPagerControllerDataSource,
 TYTabPagerControllerDelegate,
-HFFiixableScrollViewDelegate,
-HFLoopBannerDataSource>
+HFFiixableScrollViewDelegate>
 
 @property (nonatomic, strong) HFFiixableTopView *topView;
 @property (nonatomic, strong) TYTabPagerController *pagerController;
 @end
 
 @implementation ViewController{
-    HFFiixableScrollViewController *fii;
+    HFFiixableScrollView *fii;
 }
 
 - (void)viewDidLoad {
@@ -43,7 +41,7 @@ HFLoopBannerDataSource>
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)openFiixable:(id)sender{
-    fii = [HFFiixableScrollViewController new];
+    fii = [[HFFiixableScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 0)];
     fii.dataSource = self;
     fii.delegate = self;
     
@@ -56,49 +54,15 @@ HFLoopBannerDataSource>
     }];
     
     
-    [self.navigationController pushViewController:fii animated:YES];
+    [self.view addSubview:fii];
 }
 - (IBAction)tste:(id)sender {
-    HFLoopBannerView *banner = [[HFLoopBannerView alloc] initWithFrame:self.view.bounds];
-    
-    [banner registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"eeee"];
-    
-    banner.dataSource = self;
-    
-    
-    [self.view addSubview:banner];
+   
 }
 - (IBAction)openTop:(id)sender{
   
 }
-- (NSInteger)numberOfBannerCount{
-    return 6;
-}
-- (CGSize)sizeOfBanner{
-    return CGSizeMake(300, CGRectGetHeight(self.view.bounds) * 0.8);
-}
-- (UICollectionViewCell *)bannerView:(HFLoopBannerView *)bannerView
-                            ReusableView:(UICollectionViewCell *)reusableView
-                                 atIndex:(NSInteger)index{
-    
-    UILabel *label = [reusableView viewWithTag:(NSInteger)@"tag"];
-    if (!label){
-        label = [[UILabel alloc] initWithFrame:reusableView.bounds];
-        label.textColor = UIColorFromRGB(arc4random());
-        label.textAlignment = NSTextAlignmentCenter;
-        label.tag = (NSInteger)@"tag";
-        [reusableView addSubview:label];
-    }
-    label.text = [NSString stringWithFormat:@"%lu",index];
-    
-    reusableView.backgroundColor = UIColorFromRGB(0xff0000);
-    reusableView.layer.cornerRadius = 10;
-    reusableView.layer.shadowColor = UIColorFromRGB(arc4random()).CGColor;
-    reusableView.layer.shadowOpacity = 1.f;
-    reusableView.layer.shadowOffset = CGSizeMake(1, 1);
-    
-    return reusableView;
-}
+
 - (UIView *)headerOfFiixiableScroll{
     if (!_topView){
         _topView = [[HFFiixableTopView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 200) style:UITableViewStyleGrouped];
@@ -148,6 +112,11 @@ HFLoopBannerDataSource>
 
 - (NSString *)tabPagerController:(TYTabPagerController *)tabPagerController titleForIndex:(NSInteger)index{
     return [NSString stringWithFormat:@"测试%ld", index];
+}
+//TODO:关键设置一定要有
+- (void)fiiableCurrentScrollView:(UIScrollView *)scrollview{
+    [fii.scrollView.panGestureRecognizer requireGestureRecognizerToFail:scrollview.panGestureRecognizer];
+
 }
 #pragma mark --
 #pragma mark -- 控制

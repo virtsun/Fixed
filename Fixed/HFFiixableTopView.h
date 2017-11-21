@@ -10,8 +10,6 @@
 
 @interface HFFiixableTopViewHeader : UITableViewHeaderFooterView
 
-
-
 @end
 
 @interface HFFiixableTopView : UITableView

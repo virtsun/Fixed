@@ -23,7 +23,7 @@
 
 @end
 
-@interface HFFiixableScrollViewController : UIViewController<UIScrollViewDelegate>
+@interface HFFiixableScrollView : UIView<UIScrollViewDelegate>
 
 @property (nonatomic, weak) id<HFFiixableScrollViewDelegate> delegate;
 @property (nonatomic, weak) id<HFFiixableScrollViewDataSource> dataSource;
