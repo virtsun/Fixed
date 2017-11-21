@@ -13,6 +13,7 @@
 #define UIColorFromRGBA(rgbValue, a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #define UIColorFromRGB(rgbValue) UIColorFromRGBA(rgbValue, 1.f)
 #endif
+#define MAX_COUNT 999
 
 @interface BannerViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -55,7 +56,7 @@
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"content"];
 
     [self.view addSubview:_collectionView];
-    self.selectedIndex = 2;
+    self.selectedIndex = ((MAX_COUNT/_itemCount)/2) * _itemCount + 2;
     [_collectionView performBatchUpdates:^{
         [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex  inSection:0]
                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
@@ -92,7 +93,7 @@
 #pragma mark -- UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _dataSource.count;
+    return MAX_COUNT;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -107,7 +108,7 @@
         label.tag = (NSInteger)@"tag";
         [cell addSubview:label];
     }
-    label.text = _dataSource[indexPath.row];
+    label.text = _dataSource[indexPath.row%_itemCount];
 
     cell.backgroundColor = UIColorFromRGB(0xff0000);
     cell.layer.cornerRadius = 10;
@@ -196,7 +197,7 @@ static CGPoint lastPoint;
         CGFloat off = fabs(CGRectGetWidth(scrollView.frame)/2 - relationX);
         CGFloat scale = 1 - multiple* off/(CGRectGetWidth(scrollView.frame)/2);
         obj.transform = CGAffineTransformMakeScale(scale, scale);
-        
+        /*此判断在快速滑动中不准
         if (fabs(scale - 1) < 0.05f && loop){
             NSIndexPath *indexPath = [_collectionView indexPathForCell:obj];
 
@@ -220,6 +221,7 @@ static CGPoint lastPoint;
                 }
             }
         }
+         */
     }];
     lastPoint = scrollView.contentOffset;
 }
