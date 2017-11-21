@@ -111,11 +111,8 @@
     [self reloadlayout];
     [_scrollView setContentOffset:CGPointZero animated:NO];
 }
+- (void)scrollToTop{
 
-- (void)backToTop:(id)sender{
-    _scrollView.scrollEnabled = YES;
-
-    
     NSMutableArray *array = [@[] mutableCopy];
     
     if ([_contentView findSubView:[UIScrollView class] allSameType:YES container:array]){
@@ -127,7 +124,9 @@
     }
     [_scrollView setContentOffset:CGPointZero
                          animated:YES];
-    
+}
+- (void)backToTop:(id)sender{
+    [self scrollToTop];
 }
 #pragma mark --
 #pragma mark -- UIScrollView

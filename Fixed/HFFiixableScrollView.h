@@ -30,6 +30,7 @@
 
 @property (nonatomic, readonly, strong) UIScrollView *scrollView;
 
+- (void)scrollToTop;
 
 - (void)reloadlayout;
 - (void)reloadData;

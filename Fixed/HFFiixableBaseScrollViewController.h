@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @protocol FiixableBaseScrollDelegate<UIScrollViewDelegate>
 @optional
 - (void)fiiableCurrentScrollView:(UIScrollView *)scrollview;
