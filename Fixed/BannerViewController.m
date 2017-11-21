@@ -38,7 +38,7 @@
     
     _dataSource = @[@"4",@"5",@"1",@"2",@"3",@"4",@"5",@"1",@"2"];
     _itemCount = _dataSource.count;
-
+    
     _itemSize = CGSizeMake(300, CGRectGetHeight(self.view.bounds) * 0.8);
     UICollectionViewFlowLayout *_contentLayout = [SLGalleryLayout new];
     _contentLayout.minimumLineSpacing = 0;
@@ -54,7 +54,7 @@
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.alwaysBounceHorizontal = YES;
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"content"];
-
+    
     [self.view addSubview:_collectionView];
     self.selectedIndex = ((MAX_COUNT/_itemCount)/2) * _itemCount + 2;
     [_collectionView performBatchUpdates:^{
@@ -73,7 +73,7 @@
                                             animated:YES];
         } completion:^(BOOL finished) {
             NSLog(@"%@", _collectionView.visibleCells);
-        //    [self scrollLayout:_collectionView loop:NO];
+            //    [self scrollLayout:_collectionView loop:NO];
             self.selectedIndex++;
         }];
     }];
@@ -109,7 +109,7 @@
         [cell addSubview:label];
     }
     label.text = _dataSource[indexPath.row%_itemCount];
-
+    
     cell.backgroundColor = UIColorFromRGB(0xff0000);
     cell.layer.cornerRadius = 10;
     cell.layer.shadowColor = UIColorFromRGB(arc4random()).CGColor;
@@ -163,10 +163,10 @@
     }
     
     NSLog(@"target : %lu", self.selectedIndex);
-
+    
     indexPath = [NSIndexPath indexPathForRow:self.selectedIndex inSection:0];
     targetCell = [_collectionView cellForItemAtIndexPath:indexPath];
-
+    
     CGFloat x = CGRectGetMidX(targetCell.frame) - CGRectGetWidth(scrollView.bounds)/2;
     *targetContentOffset = CGPointMake(x, scrollView.contentOffset.y);
 }
@@ -198,31 +198,32 @@ static CGPoint lastPoint;
         CGFloat scale = 1 - multiple* off/(CGRectGetWidth(scrollView.frame)/2);
         obj.transform = CGAffineTransformMakeScale(scale, scale);
         /*此判断在快速滑动中不准
-        if (fabs(scale - 1) < 0.05f && loop){
-            NSIndexPath *indexPath = [_collectionView indexPathForCell:obj];
-
-            if (lastPoint.x > scrollView.contentOffset.x){
-                //向右滑动
-                if (indexPath.row == 2 && self.selectedIndex == 2){
-                    NSLog(@"向右滑动 到达初始");
-                    NSLog(@"scale:%lf", scale);
-
-                    [self scrollToIndex:_itemCount - 2 from:2];
-                }
-
-            }else{
-                //向左滑动
-                if (indexPath.row == _itemCount - 2 && self.selectedIndex == _itemCount - 2){
-                    NSLog(@"向左滑动到达末尾");
-                    NSLog(@"scale:%lf", scale);
-
-                    [self scrollToIndex:2 from:_itemCount - 2];
-
-                }
-            }
-        }
+         if (fabs(scale - 1) < 0.05f && loop){
+         NSIndexPath *indexPath = [_collectionView indexPathForCell:obj];
+         
+         if (lastPoint.x > scrollView.contentOffset.x){
+         //向右滑动
+         if (indexPath.row == 2 && self.selectedIndex == 2){
+         NSLog(@"向右滑动 到达初始");
+         NSLog(@"scale:%lf", scale);
+         
+         [self scrollToIndex:_itemCount - 2 from:2];
+         }
+         
+         }else{
+         //向左滑动
+         if (indexPath.row == _itemCount - 2 && self.selectedIndex == _itemCount - 2){
+         NSLog(@"向左滑动到达末尾");
+         NSLog(@"scale:%lf", scale);
+         
+         [self scrollToIndex:2 from:_itemCount - 2];
+         
+         }
+         }
+         }
          */
     }];
     lastPoint = scrollView.contentOffset;
 }
 @end
+
