@@ -20,7 +20,7 @@
 		D4E0CA9B1FBC13770004E53B /* SLGalleryLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA9A1FBC13770004E53B /* SLGalleryLayout.m */; };
 		D4E0CAB01FBE80780004E53B /* HFFiixableBaseScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAAF1FBE80780004E53B /* HFFiixableBaseScrollViewController.m */; };
 		D4E0CAB31FBE8B990004E53B /* UIScrollView+Fiixable.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAB21FBE8B990004E53B /* UIScrollView+Fiixable.m */; };
-		D4E0CAB61FC27AEE0004E53B /* BannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAB51FC27AEE0004E53B /* BannerViewController.m */; };
+		D4E0CAB61FC27AEE0004E53B /* HFLoopBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAB51FC27AEE0004E53B /* HFLoopBannerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,8 +49,8 @@
 		D4E0CAAF1FBE80780004E53B /* HFFiixableBaseScrollViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFiixableBaseScrollViewController.m; sourceTree = "<group>"; };
 		D4E0CAB11FBE8B990004E53B /* UIScrollView+Fiixable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Fiixable.h"; sourceTree = "<group>"; };
 		D4E0CAB21FBE8B990004E53B /* UIScrollView+Fiixable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Fiixable.m"; sourceTree = "<group>"; };
-		D4E0CAB41FC27AEE0004E53B /* BannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BannerViewController.h; sourceTree = "<group>"; };
-		D4E0CAB51FC27AEE0004E53B /* BannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BannerViewController.m; sourceTree = "<group>"; };
+		D4E0CAB41FC27AEE0004E53B /* HFLoopBannerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFLoopBannerView.h; sourceTree = "<group>"; };
+		D4E0CAB51FC27AEE0004E53B /* HFLoopBannerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFLoopBannerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,8 +124,8 @@
 				D4E0CAAF1FBE80780004E53B /* HFFiixableBaseScrollViewController.m */,
 				D4E0CAB11FBE8B990004E53B /* UIScrollView+Fiixable.h */,
 				D4E0CAB21FBE8B990004E53B /* UIScrollView+Fiixable.m */,
-				D4E0CAB41FC27AEE0004E53B /* BannerViewController.h */,
-				D4E0CAB51FC27AEE0004E53B /* BannerViewController.m */,
+				D4E0CAB41FC27AEE0004E53B /* HFLoopBannerView.h */,
+				D4E0CAB51FC27AEE0004E53B /* HFLoopBannerView.m */,
 			);
 			path = Fixed;
 			sourceTree = "<group>";
@@ -256,7 +256,7 @@
 				D4E0CA9B1FBC13770004E53B /* SLGalleryLayout.m in Sources */,
 				D4E0CA921FBA8E400004E53B /* HFFiixableScrollViewController.m in Sources */,
 				D4E0CAB01FBE80780004E53B /* HFFiixableBaseScrollViewController.m in Sources */,
-				D4E0CAB61FC27AEE0004E53B /* BannerViewController.m in Sources */,
+				D4E0CAB61FC27AEE0004E53B /* HFLoopBannerView.m in Sources */,
 				D4E0CA951FBA965D0004E53B /* UIView+Ext.m in Sources */,
 				D4E0CA981FBC11690004E53B /* HFFiixableTopView.m in Sources */,
 				D4E0CA7F1FBA8DDD0004E53B /* ViewController.m in Sources */,
