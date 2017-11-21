@@ -80,9 +80,9 @@
                                         atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                                 animated:YES];
             } completion:^(BOOL finished) {
-                NSLog(@"%@", _collectionView.visibleCells);
                 //    [self scrollLayout:_collectionView loop:NO];
                 self.selectedIndex++;
+                [self scrollViewDidEndScroll];
             }];
         }];
     }else{
