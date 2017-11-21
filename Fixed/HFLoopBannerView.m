@@ -80,7 +80,7 @@
                                                 animated:YES];
             } completion:^(BOOL finished) {
                 self.selectedIndex++;
-                [self scrollViewDidEndScroll];
+                [self scrollViewDidEndScroll:YES];
             }];
         }];
     }else{
@@ -200,12 +200,14 @@
         }
     }
 }
-
-- (void)scrollViewDidEndScroll {
-    NSInteger target = ((MAX_COUNT/_itemCount)/2) * _itemCount + self.selectedIndex %_itemCount;
+- (void)scrollViewDidEndScroll{
+    [self scrollViewDidEndScroll:NO];
+}
+- (void)scrollViewDidEndScroll:(BOOL)autoLoop {
+    NSInteger target = ((MAX_COUNT/_itemCount)/2) * _itemCount + (self.selectedIndex) %_itemCount;
     
     if (labs(target - self.selectedIndex) > 10){
-        self.selectedIndex = target;
+        self.selectedIndex = autoLoop?target - 1:target;
         [_collectionView performBatchUpdates:^{
             [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex  inSection:0]
                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
