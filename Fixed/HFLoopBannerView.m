@@ -18,6 +18,7 @@
 @property (nonatomic, assign) NSInteger itemCount;
 
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) BOOL timerStop;
 @property (nonatomic, copy) NSString *identifier;
 
 @end
@@ -87,6 +88,18 @@
         [_timer invalidate];
         _timer = nil;
     }
+}
+
+- (void)startTimer{
+    if (_timerStop){
+        [_timer performSelector:@selector(setFireDate:) withObject:[NSDate distantPast] afterDelay:_autoLoopTimes];
+        _timerStop = NO;
+    }
+
+}
+- (void)stopTimer{
+    [_timer setFireDate:[NSDate distantFuture]];
+    _timerStop = YES;
 }
 #pragma mark --
 #pragma mark -- UICollectionViewDataSource
@@ -182,7 +195,9 @@
     CGFloat x = CGRectGetMidX(targetCell.frame) - CGRectGetWidth(scrollView.bounds)/2;
     *targetContentOffset = CGPointMake(x, scrollView.contentOffset.y);
 }
-
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self stopTimer];
+}
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     // 停止类型1、停止类型2
     BOOL scrollToScrollStop = !scrollView.tracking && !scrollView.dragging &&    !scrollView.decelerating;
@@ -204,6 +219,9 @@
     [self scrollViewDidEndScroll:NO];
 }
 - (void)scrollViewDidEndScroll:(BOOL)autoLoop {
+    
+    [self startTimer];
+    
     NSInteger target = ((MAX_COUNT/_itemCount)/2) * _itemCount + (self.selectedIndex) %_itemCount;
     
     if (labs(target - self.selectedIndex) > 10){
