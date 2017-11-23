@@ -34,6 +34,7 @@
 @property (nonatomic, weak) id<HFFiixableScrollViewDataSource> dataSource;
 
 @property (nonatomic, readonly, strong) UIScrollView *scrollView;
+@property (nonatomic, weak) UIScrollView *relationScrollView;
 
 - (void)scrollToTop;
 

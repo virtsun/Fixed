@@ -12,7 +12,7 @@
 
 #define HFFiixableScrollViewMinOffsetY (-1100)
 
-@interface HFFiixableScrollView()
+@interface HFFiixableScrollView()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *headerView;
@@ -52,6 +52,7 @@
     
     if (fiexed){
         _locked = YES;
+        _scrollView.relationToFiixable = YES;
     }
     
     if ([_delegate respondsToSelector:@selector(fiixiable:)]){
@@ -64,11 +65,8 @@
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
-    _scrollView.delaysContentTouches = NO;
-    
     if(@available(iOS 11.0, *)){
         _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        _scrollView.scrollEnabled = NO;
     }
 
     _scrollView.delegate = self;
@@ -153,8 +151,8 @@
 }
 - (void)scrollToTop{
     _locked = NO;
-    _scrollView.scrollEnabled = YES;
-    
+    _scrollView.relationToFiixable = NO;
+
     NSMutableArray *array = [@[] mutableCopy];
     
     if ([_contentView findSubView:[UIScrollView class] allSameType:YES container:array]){
@@ -238,9 +236,15 @@ NSTimeInterval intervalStart;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     
     if (_locked){
+//        if (scrollView == _scrollView && self.relationScrollView){
+//            CGFloat off = scrollView.contentOffset.y - CGRectGetMinY(_contentView.frame);
+//            [self.relationScrollView setContentOffset:CGPointMake(0, _relationScrollView.contentOffset.y + off)];
+//        }
         [_scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(_contentView.frame))];
+
         return;
     }
         

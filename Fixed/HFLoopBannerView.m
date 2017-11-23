@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) BOOL timerStop;
+@property (nonatomic, assign) CGFloat multiple;
 @property (nonatomic, copy) NSString *identifier;
 
 @end
@@ -124,8 +125,9 @@
     if ([_dataSource respondsToSelector:@selector(sizeOfItemAt:)]){
         _itemSize = [_dataSource sizeOfItemAt:self];
     }
+    _multiple = 0;
     if ([_dataSource respondsToSelector:@selector(mutipleOfBannerAt:)]){
-        multiple = [_dataSource mutipleOfBannerAt:self];
+        _multiple = [_dataSource mutipleOfBannerAt:self];
     }
     
     if ([_dataSource respondsToSelector:@selector(marginOfItemsAt:)]){
@@ -261,7 +263,6 @@
    
 }
 
-CGFloat multiple = 0.1;
 static CGPoint lastPoint;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self scrollLayout:scrollView loop:YES];
@@ -273,7 +274,7 @@ static CGPoint lastPoint;
         CGFloat relationX  = CGRectGetMidX(obj.frame) - scrollView.contentOffset.x;
         
         CGFloat off = fabs(CGRectGetWidth(scrollView.frame)/2 - relationX);
-        CGFloat scale = 1 - multiple* off/(CGRectGetWidth(scrollView.frame)/2);
+        CGFloat scale = 1 - _multiple* off/(CGRectGetWidth(scrollView.frame)/2);
         obj.transform = CGAffineTransformMakeScale(scale, scale);
     }];
     lastPoint = scrollView.contentOffset;

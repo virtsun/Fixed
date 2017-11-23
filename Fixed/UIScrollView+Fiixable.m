@@ -23,6 +23,11 @@
     id fiixable = objc_getAssociatedObject(self, "relationToFiixable");
     return fiixable?[fiixable boolValue]:NO;
 }
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    return !self.relationToFiixable;
+}
+
 @end
 
 @implementation UITableView(Fiixable)

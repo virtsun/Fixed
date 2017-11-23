@@ -115,7 +115,7 @@
     return CGSizeMake(280, 160);
 }
 - (CGFloat)mutipleOfBannerAt:(HFLoopBannerView *)bannerView{
-    return 0.1;
+    return 0.0;
 }
 
 - (CGFloat)marginOfItemsAt:(HFLoopBannerView *)bannerView{

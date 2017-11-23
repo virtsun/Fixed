@@ -66,10 +66,10 @@ HFFiixableScrollViewDelegate>
 }
 
 - (UIView *)fiixiableOfFiixiableScroll{
-    /*if (!_pagerController){
+    if (!_pagerController){
      _pagerController = [[TYTabPagerController alloc] init];
      _pagerController.tabBar.contentInset = UIEdgeInsetsMake(20, 20, 0, 20);
-     [_pagerController setTabBarHeight:44];
+     [_pagerController setTabBarHeight:0];
      _pagerController.tabBar.layout.selectedTextColor = [UIColor greenColor];
      _pagerController.dataSource = self;
      _pagerController.delegate = self;
@@ -82,7 +82,7 @@ HFFiixableScrollViewDelegate>
      }
      _pagerController.view.frame = self.view.bounds;
      return _pagerController.view;
-     */
+     /*
     if (!_allVC){
         _allVC = [[HFFutureStarAllViewController alloc] init];
         _allVC.delegate = self;
@@ -90,6 +90,7 @@ HFFiixableScrollViewDelegate>
     
     _allVC.view.frame = self.view.bounds;
     return _allVC.view;
+      */
     
 }
 - (UIView *)scaleHeaderOfFiixiableScroll{
@@ -114,12 +115,13 @@ HFFiixableScrollViewDelegate>
 #pragma mark --
 #pragma mark -- TYTabPagerController
 - (NSInteger)numberOfControllersInTabPagerController{
-    return 3;
+    return 1;
 }
 - (UIViewController *)tabPagerController:(TYTabPagerController *)tabPagerController controllerForIndex:(NSInteger)index prefetching:(BOOL)prefetching{
-    HFFiixableBaseScrollViewController *vc = [HFFiixableBaseScrollViewController new];
-    vc.delegate = self;
-    return vc;
+     HFFutureStarAllViewController * allVC = [[HFFutureStarAllViewController alloc] init];
+     allVC.delegate = self;
+    
+    return allVC;
 }
 
 - (NSString *)tabPagerController:(TYTabPagerController *)tabPagerController titleForIndex:(NSInteger)index{
@@ -127,6 +129,7 @@ HFFiixableScrollViewDelegate>
 }
 //TODO:关键设置一定要有
 - (void)fiiableCurrentScrollView:(UIScrollView *)scrollview{
+    fii.relationScrollView = scrollview;
     [fii.scrollView.panGestureRecognizer requireGestureRecognizerToFail:scrollview.panGestureRecognizer];
     
 }
