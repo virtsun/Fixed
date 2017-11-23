@@ -9,11 +9,11 @@
 #import "ViewController.h"
 #import "HFFiixableScrollView.h"
 #import <TYTabPagerController.h>
-#import "HFFiixableTopView.h"
-#import "HFFuturStarAllViewController.h"
+#import "HFFutureTopView.h"
+#import "HFFutureStarAllViewController.h"
 #import "UIScrollView+Fiixable.h"
 #import <MJRefresh/MJRefresh.h>
-
+#import "HFFutureTipView.h"
 
 @interface ViewController ()
 <HFFiixableScrollViewDataSource,
@@ -22,9 +22,10 @@ TYTabPagerControllerDataSource,
 TYTabPagerControllerDelegate,
 HFFiixableScrollViewDelegate>
 
-@property (nonatomic, strong) HFFiixableTopView *topView;
+@property (nonatomic, strong) HFFutureTopView *topView;
 @property (nonatomic, strong) TYTabPagerController *pagerController;
-@property (nonatomic, strong) HFFuturStarAllViewController *allVC;
+@property (nonatomic, strong) HFFutureStarAllViewController *allVC;
+@property (nonatomic, strong) HFFutureTipView *tipView;
 @end
 
 @implementation ViewController{
@@ -67,7 +68,7 @@ HFFiixableScrollViewDelegate>
 
 - (UIView *)headerOfFiixiableScroll{
     if (!_topView){
-        _topView = [[HFFiixableTopView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 200) style:UITableViewStyleGrouped];
+        _topView = [[HFFutureTopView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 200) style:UITableViewStyleGrouped];
         __weak typeof(fii) weak_fii = fii;
         [_topView sizeToFit];
         _topView.frame_changed_block = ^{
@@ -96,7 +97,7 @@ HFFiixableScrollViewDelegate>
     return _pagerController.view;
      */
     if (!_allVC){
-        _allVC = [[HFFuturStarAllViewController alloc] init];
+        _allVC = [[HFFutureStarAllViewController alloc] init];
         _allVC.delegate = self;
     }
 
@@ -105,19 +106,17 @@ HFFiixableScrollViewDelegate>
     
 }
 - (UIView *)scaleHeaderOfFiixiableScroll{
-    UILabel *_tipLabel = [[UILabel alloc] init];
-    _tipLabel.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 100);
-    _tipLabel.text = @"产品定位 偶像工厂直明星打造基地\n有234名偶像等待发现，已经发现238名偶像";
-    _tipLabel.textColor = [UIColor whiteColor];
-    _tipLabel.numberOfLines = 2;
-    _tipLabel.textAlignment = NSTextAlignmentCenter;
-    _tipLabel.backgroundColor = [UIColor grayColor];
-    _tipLabel.font = [UIFont systemFontOfSize:12];
-    
-    return _tipLabel;
+    if (!_tipView){
+        _tipView = [[HFFutureTipView alloc] init];
+        _tipView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 150);
+        _tipView.maxHeight = 150;
+        _tipView.minScaleHeight = 50;
+    }
+
+    return _tipView;
 }
 - (CGFloat)scaleHeaderMinHeightOfFiixiableScroll{
-    return 30;
+    return 50;
 }
 - (void)fiixiable:(BOOL)fixed{
     for (int i = 0; i < [self numberOfControllersInTabPagerController]; i++){

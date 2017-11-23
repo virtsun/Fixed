@@ -115,6 +115,8 @@
 
 - (void)reloadData{
     _itemCount = 0;
+    self.selectedIndex = 0;
+    
     if ([_dataSource respondsToSelector:@selector(numberOfBanners:)]){
         _itemCount = [_dataSource numberOfBanners:self];
     }
@@ -129,6 +131,9 @@
     if ([_dataSource respondsToSelector:@selector(marginOfItemsAt:)]){
         _contentLayout.minimumLineSpacing = [_dataSource marginOfItemsAt:self];
     }
+    if ([_dataSource respondsToSelector:@selector(numberSelectedOfBanners:)]){
+        self.selectedIndex = [_dataSource numberSelectedOfBanners:self];
+    }
     
     [_collectionView reloadData];
     
@@ -136,7 +141,7 @@
     
     _collectionView.contentInset = UIEdgeInsetsMake(0, (CGRectGetWidth(_collectionView.bounds) - _itemSize.width)/2, 0, (CGRectGetWidth(_collectionView.bounds) - _itemSize.width)/2);
     
-    self.selectedIndex = _enableInfiniteLoop?(((MAX_COUNT/_itemCount)/2) * _itemCount):0;
+    self.selectedIndex = (_enableInfiniteLoop?(((MAX_COUNT/_itemCount)/2) * _itemCount):0) + self.selectedIndex;
     [_collectionView performBatchUpdates:^{
         [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex  inSection:0]
                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally

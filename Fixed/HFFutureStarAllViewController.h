@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "HFFiixableBaseScrollViewController.h"
 
-@interface HFFuturStarAllViewController : HFFiixableBaseScrollViewController
+@interface HFFutureStarAllViewController : HFFiixableBaseScrollViewController
 
 @end

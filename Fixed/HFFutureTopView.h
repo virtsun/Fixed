@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HFFiixableTopViewHeader : UITableViewHeaderFooterView
-
-@end
-
-@interface HFFiixableTopView : UITableView
+@interface HFFutureTopView : UITableView
 
 @property(nonatomic, copy) void (^frame_changed_block)(void);
 

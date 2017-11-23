@@ -32,13 +32,13 @@
     CGFloat total = CGRectGetHeight(self.tableHeaderView.bounds);
     for (size_t i = 0; i < [self numberOfSections]; i++){
         if (![self.delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)]) return CGSizeZero;
-        if (![self.delegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)]) return CGSizeZero;
-        if (![self.delegate respondsToSelector:@selector(tableView:heightForFooterInSection:)]) return CGSizeZero;
+        if ([self.delegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)]){
+            total += [self.delegate tableView:self heightForHeaderInSection:i];
+        }
+        if ([self.delegate respondsToSelector:@selector(tableView:heightForFooterInSection:)]){
+            total += [self.delegate tableView:self heightForFooterInSection:i];
+        }
 
-        CGFloat header = [self.delegate tableView:self heightForHeaderInSection:i];
-        CGFloat footer = [self.delegate tableView:self heightForFooterInSection:i];
-        total += (header + footer);
-        
         for (size_t j = 0; j < [self numberOfRowsInSection:i]; j++){
             CGFloat row = [self.delegate tableView:self heightForRowAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i]];
             

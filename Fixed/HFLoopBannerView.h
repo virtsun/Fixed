@@ -18,6 +18,8 @@
 @protocol HFLoopBannerDataSource <NSObject>
 
 @optional
+- (NSInteger)numberSelectedOfBanners:(HFLoopBannerView *)bannerView;
+
 - (NSInteger)numberOfBanners:(HFLoopBannerView *)bannerView;
 - (CGSize)sizeOfItemAt:(HFLoopBannerView *)bannerView;
 - (CGFloat)marginOfItemsAt:(HFLoopBannerView *)bannerView;

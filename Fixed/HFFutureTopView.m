@@ -6,21 +6,18 @@
 //  Copyright © 2017年 l.t.zero. All rights reserved.
 //
 
-#import "HFFiixableTopView.h"
+#import "HFFutureTopView.h"
 #import "UIView+Ext.h"
 #import "HFLoopBannerView.h"
+#import "HFFutureTopCell.h"
 
 #ifndef RGBACOLOR
 #define UIColorFromRGBA(rgbValue, a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #define UIColorFromRGB(rgbValue) UIColorFromRGBA(rgbValue, 1.f)
 #endif
 
-@implementation HFFiixableTopViewHeader
 
-@end
-
-
-@interface HFFiixableTopView ()<UITableViewDataSource, UITableViewDelegate, HFLoopBannerDataSource>
+@interface HFFutureTopView ()<UITableViewDataSource, UITableViewDelegate, HFLoopBannerDataSource>
 
 @property(nonatomic, strong) UIView *tableViewHeader;
 @property(nonatomic, strong) UILabel *tipLabel;
@@ -29,13 +26,14 @@
 
 @end
 
-@implementation HFFiixableTopView
+@implementation HFFutureTopView
 
 - (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style{
     
     if (self = [super initWithFrame:frame style:style]){
         [self setupTableView];
         [self setBanner];
+        [self setFooter];
     }
     return self;
 }
@@ -50,29 +48,62 @@
     self.backgroundColor = [UIColor grayColor];
     self.scrollEnabled = NO;
     
-    [self registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([self class])];
+    [self registerClass:[HFFutureTopCell class] forCellReuseIdentifier:NSStringFromClass([self class])];
     [self registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"TopHeader"];
     self.tableFooterView = [UIView new];
     if(@available(iOS 11.0, *)){
         self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-    
-
-    
-
 }
 
 - (void)setBanner{
     HFLoopBannerView *banner = [[HFLoopBannerView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 200)];
     
     [banner registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"eeee"];
-    banner.enableInfiniteLoop = NO;
+//    banner.enableInfiniteLoop = NO;
 
     banner.dataSource = self;
     banner.autoLoopTimes = 3;
     
     self.tableHeaderView = banner;
+}
+- (void)setFooter{
+    UIView *footer = [[UIView alloc] init];
+    footer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), 385.f/2);
+    footer.backgroundColor = UIColorFromRGBA(arc4random(), 0.5f);
     
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.frame = CGRectMake(0, 36, CGRectGetWidth(footer.frame), 20);
+    titleLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:20];
+    titleLabel.text = @"明日之星榜";
+    [footer addSubview:titleLabel];
+    
+    CGFloat width = round((CGRectGetWidth(footer.bounds) - 10 * 4)/3);
+    
+    UIButton *board = [UIButton buttonWithType:UIButtonTypeCustom];
+    board.frame = CGRectMake(10, CGRectGetMaxY(titleLabel.frame) + 40, width, 50);
+    [board setTitle:@"总排行榜" forState: UIControlStateNormal];
+    [board setTitleColor:UIColorFromRGB(arc4random()) forState:UIControlStateNormal];
+    
+    [footer addSubview:board];
+
+    board = [UIButton buttonWithType:UIButtonTypeCustom];
+    board.frame = CGRectMake(10 + (width + 10), CGRectGetMaxY(titleLabel.frame)+ 40, width, 50);
+    [board setTitle:@"月排行榜" forState: UIControlStateNormal];
+    [board setTitleColor:UIColorFromRGB(arc4random()) forState:UIControlStateNormal];
+    
+    [footer addSubview:board];
+    
+    board = [UIButton buttonWithType:UIButtonTypeCustom];
+    board.frame = CGRectMake(10 + (width + 10) * 2, CGRectGetMaxY(titleLabel.frame)+ 40, width, 50);
+    [board setTitle:@"周排行榜" forState: UIControlStateNormal];
+    [board setTitleColor:UIColorFromRGB(arc4random()) forState:UIControlStateNormal];
+    
+    [footer addSubview:board];
+    
+    self.tableFooterView = footer;
 }
 
 #pragma mark --
@@ -81,10 +112,10 @@
     return 6;
 }
 - (CGSize)sizeOfItemAt:(HFLoopBannerView *)bannerView{
-    return CGSizeMake(300, 160);
+    return CGSizeMake(280, 160);
 }
 - (CGFloat)mutipleOfBannerAt:(HFLoopBannerView *)bannerView{
-    return 0;
+    return 0.1;
 }
 
 - (CGFloat)marginOfItemsAt:(HFLoopBannerView *)bannerView{
@@ -117,27 +148,11 @@
 #pragma mark -- UITableView
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return 3;
 }
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
-    return 40;
-}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 100;
-}
-- (UIView* )tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TopHeader"];
-    header.contentView.backgroundColor = UIColorFromRGB(0xffffff);
-    header.textLabel.text = @"我关注的 ";
-    header.textLabel.font = [UIFont systemFontOfSize:13];
-    header.textLabel.textColor = UIColorFromRGB(0x000000);
-    return header;
+    return indexPath.row > 0?220 : 300;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -149,10 +164,14 @@
     return header;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([self class]) forIndexPath:indexPath];
+    HFFutureTopCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([self class]) forIndexPath:indexPath];
     cell.backgroundColor = UIColorFromRGB(0xffffff);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    cell.titleLabel.text = @[@"我关注的", @"新进签约艺人", @"热门直播"][indexPath.row];
+    cell.numberOfLines = indexPath.row > 0?1:2;//行数根据数据源计算
+    cell.scrollDirection =indexPath.row > 0?UICollectionViewScrollDirectionHorizontal:UICollectionViewScrollDirectionVertical;
+    cell.dataSource = indexPath.row > 0?@[@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1"]:@[@"1",@"1",@"1",@"1",@"1",@"1"];
+
     return cell;
 }
 

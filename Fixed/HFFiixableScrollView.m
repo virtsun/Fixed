@@ -75,8 +75,7 @@
     
     _backToTopButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _backToTopButton.frame = CGRectMake(10, CGRectGetHeight(self.bounds) - 60, 50, 50);
-    [_backToTopButton setTitle:@"回" forState:UIControlStateNormal];
-    [_backToTopButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [_backToTopButton setImage:[UIImage imageNamed:@"Rocket_blue"] forState:UIControlStateNormal];
     _backToTopButton.hidden = YES;
 
     [_backToTopButton addTarget:self action:@selector(backToTop:) forControlEvents:UIControlEventTouchUpInside];
@@ -95,6 +94,10 @@
     
     if ([_dataSource respondsToSelector:@selector(scaleHeaderOfFiixiableScroll)]){
         
+        if (_scaleheaderView && _scaleheaderView.superview){
+            [_scaleheaderView removeFromSuperview];
+        }
+        
         _scaleheaderView = [_dataSource scaleHeaderOfFiixiableScroll];
         
         if (![_scrollView.subviews containsObject:_scaleheaderView]){
@@ -108,6 +111,10 @@
 
     if ([_dataSource respondsToSelector:@selector(headerOfFiixiableScroll)]){
 
+        if (_headerView && _headerView.superview){
+            [_headerView removeFromSuperview];
+        }
+        
         _headerView = [_dataSource headerOfFiixiableScroll];
         
         if (![_scrollView.subviews containsObject:_headerView]){
@@ -120,6 +127,11 @@
     }
     
     if ([_dataSource respondsToSelector:@selector(fiixiableOfFiixiableScroll)]){
+        
+        if (_contentView && _contentView.superview){
+            [_contentView removeFromSuperview];
+        }
+        
         _contentView = [_dataSource fiixiableOfFiixiableScroll];
 
         if (![_scrollView.subviews containsObject:_contentView]){
@@ -225,9 +237,7 @@ NSTimeInterval intervalStart;
     
     if (_locked){
         [_scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(_contentView.frame))];
-
         return;
-        
     }
         
     if (scrollView != _scrollView){

@@ -16,11 +16,14 @@
 		D4E0CA8A1FBA8DDD0004E53B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA891FBA8DDD0004E53B /* main.m */; };
 		D4E0CA921FBA8E400004E53B /* HFFiixableScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA911FBA8E400004E53B /* HFFiixableScrollView.m */; };
 		D4E0CA951FBA965D0004E53B /* UIView+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA931FBA965D0004E53B /* UIView+Ext.m */; };
-		D4E0CA981FBC11690004E53B /* HFFiixableTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA971FBC11690004E53B /* HFFiixableTopView.m */; };
+		D4E0CA981FBC11690004E53B /* HFFutureTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CA971FBC11690004E53B /* HFFutureTopView.m */; };
 		D4E0CAB01FBE80780004E53B /* HFFiixableBaseScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAAF1FBE80780004E53B /* HFFiixableBaseScrollViewController.m */; };
 		D4E0CAB31FBE8B990004E53B /* UIScrollView+Fiixable.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAB21FBE8B990004E53B /* UIScrollView+Fiixable.m */; };
 		D4E0CAB61FC27AEE0004E53B /* HFLoopBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAB51FC27AEE0004E53B /* HFLoopBannerView.m */; };
-		D4E0CAC51FC690D70004E53B /* HFFuturStarAllViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAC41FC690D60004E53B /* HFFuturStarAllViewController.m */; };
+		D4E0CAC51FC690D70004E53B /* HFFutureStarAllViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAC41FC690D60004E53B /* HFFutureStarAllViewController.m */; };
+		D4E0CAC81FC696350004E53B /* HFFutureStarHotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAC71FC696350004E53B /* HFFutureStarHotCell.m */; };
+		D4E0CACB1FC69EA10004E53B /* HFFutureTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CACA1FC69EA10004E53B /* HFFutureTopCell.m */; };
+		D4E0CACE1FC6AA280004E53B /* HFFutureTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CACD1FC6AA280004E53B /* HFFutureTipView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,16 +44,22 @@
 		D4E0CA911FBA8E400004E53B /* HFFiixableScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFiixableScrollView.m; sourceTree = "<group>"; };
 		D4E0CA931FBA965D0004E53B /* UIView+Ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Ext.m"; sourceTree = "<group>"; };
 		D4E0CA941FBA965D0004E53B /* UIView+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Ext.h"; sourceTree = "<group>"; };
-		D4E0CA961FBC11690004E53B /* HFFiixableTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFiixableTopView.h; sourceTree = "<group>"; };
-		D4E0CA971FBC11690004E53B /* HFFiixableTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFiixableTopView.m; sourceTree = "<group>"; };
+		D4E0CA961FBC11690004E53B /* HFFutureTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFutureTopView.h; sourceTree = "<group>"; };
+		D4E0CA971FBC11690004E53B /* HFFutureTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFutureTopView.m; sourceTree = "<group>"; };
 		D4E0CAAE1FBE80780004E53B /* HFFiixableBaseScrollViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFiixableBaseScrollViewController.h; sourceTree = "<group>"; };
 		D4E0CAAF1FBE80780004E53B /* HFFiixableBaseScrollViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFiixableBaseScrollViewController.m; sourceTree = "<group>"; };
 		D4E0CAB11FBE8B990004E53B /* UIScrollView+Fiixable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Fiixable.h"; sourceTree = "<group>"; };
 		D4E0CAB21FBE8B990004E53B /* UIScrollView+Fiixable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Fiixable.m"; sourceTree = "<group>"; };
 		D4E0CAB41FC27AEE0004E53B /* HFLoopBannerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFLoopBannerView.h; sourceTree = "<group>"; };
 		D4E0CAB51FC27AEE0004E53B /* HFLoopBannerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFLoopBannerView.m; sourceTree = "<group>"; };
-		D4E0CAC31FC690D60004E53B /* HFFuturStarAllViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFuturStarAllViewController.h; sourceTree = "<group>"; };
-		D4E0CAC41FC690D60004E53B /* HFFuturStarAllViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFuturStarAllViewController.m; sourceTree = "<group>"; };
+		D4E0CAC31FC690D60004E53B /* HFFutureStarAllViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFutureStarAllViewController.h; sourceTree = "<group>"; };
+		D4E0CAC41FC690D60004E53B /* HFFutureStarAllViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFutureStarAllViewController.m; sourceTree = "<group>"; };
+		D4E0CAC61FC696350004E53B /* HFFutureStarHotCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFutureStarHotCell.h; sourceTree = "<group>"; };
+		D4E0CAC71FC696350004E53B /* HFFutureStarHotCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFutureStarHotCell.m; sourceTree = "<group>"; };
+		D4E0CAC91FC69EA10004E53B /* HFFutureTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFutureTopCell.h; sourceTree = "<group>"; };
+		D4E0CACA1FC69EA10004E53B /* HFFutureTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFutureTopCell.m; sourceTree = "<group>"; };
+		D4E0CACC1FC6AA280004E53B /* HFFutureTipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFutureTipView.h; sourceTree = "<group>"; };
+		D4E0CACD1FC6AA280004E53B /* HFFutureTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFutureTipView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,16 +125,22 @@
 				D4E0CA891FBA8DDD0004E53B /* main.m */,
 				D4E0CA901FBA8E400004E53B /* HFFiixableScrollView.h */,
 				D4E0CA911FBA8E400004E53B /* HFFiixableScrollView.m */,
-				D4E0CA961FBC11690004E53B /* HFFiixableTopView.h */,
-				D4E0CA971FBC11690004E53B /* HFFiixableTopView.m */,
+				D4E0CA961FBC11690004E53B /* HFFutureTopView.h */,
+				D4E0CA971FBC11690004E53B /* HFFutureTopView.m */,
 				D4E0CAAE1FBE80780004E53B /* HFFiixableBaseScrollViewController.h */,
 				D4E0CAAF1FBE80780004E53B /* HFFiixableBaseScrollViewController.m */,
 				D4E0CAB11FBE8B990004E53B /* UIScrollView+Fiixable.h */,
 				D4E0CAB21FBE8B990004E53B /* UIScrollView+Fiixable.m */,
 				D4E0CAB41FC27AEE0004E53B /* HFLoopBannerView.h */,
 				D4E0CAB51FC27AEE0004E53B /* HFLoopBannerView.m */,
-				D4E0CAC31FC690D60004E53B /* HFFuturStarAllViewController.h */,
-				D4E0CAC41FC690D60004E53B /* HFFuturStarAllViewController.m */,
+				D4E0CAC31FC690D60004E53B /* HFFutureStarAllViewController.h */,
+				D4E0CAC41FC690D60004E53B /* HFFutureStarAllViewController.m */,
+				D4E0CAC61FC696350004E53B /* HFFutureStarHotCell.h */,
+				D4E0CAC71FC696350004E53B /* HFFutureStarHotCell.m */,
+				D4E0CAC91FC69EA10004E53B /* HFFutureTopCell.h */,
+				D4E0CACA1FC69EA10004E53B /* HFFutureTopCell.m */,
+				D4E0CACC1FC6AA280004E53B /* HFFutureTipView.h */,
+				D4E0CACD1FC6AA280004E53B /* HFFutureTipView.m */,
 			);
 			path = Fixed;
 			sourceTree = "<group>";
@@ -252,13 +267,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E0CACE1FC6AA280004E53B /* HFFutureTipView.m in Sources */,
 				D4E0CAB31FBE8B990004E53B /* UIScrollView+Fiixable.m in Sources */,
+				D4E0CAC81FC696350004E53B /* HFFutureStarHotCell.m in Sources */,
 				D4E0CA921FBA8E400004E53B /* HFFiixableScrollView.m in Sources */,
 				D4E0CAB01FBE80780004E53B /* HFFiixableBaseScrollViewController.m in Sources */,
-				D4E0CAC51FC690D70004E53B /* HFFuturStarAllViewController.m in Sources */,
+				D4E0CAC51FC690D70004E53B /* HFFutureStarAllViewController.m in Sources */,
 				D4E0CAB61FC27AEE0004E53B /* HFLoopBannerView.m in Sources */,
 				D4E0CA951FBA965D0004E53B /* UIView+Ext.m in Sources */,
-				D4E0CA981FBC11690004E53B /* HFFiixableTopView.m in Sources */,
+				D4E0CA981FBC11690004E53B /* HFFutureTopView.m in Sources */,
+				D4E0CACB1FC69EA10004E53B /* HFFutureTopCell.m in Sources */,
 				D4E0CA7F1FBA8DDD0004E53B /* ViewController.m in Sources */,
 				D4E0CA8A1FBA8DDD0004E53B /* main.m in Sources */,
 				D4E0CA7C1FBA8DDD0004E53B /* AppDelegate.m in Sources */,
