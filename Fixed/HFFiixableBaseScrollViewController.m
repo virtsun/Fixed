@@ -9,12 +9,9 @@
 #import "HFFiixableBaseScrollViewController.h"
 #import <MJRefresh/MJRefresh.h>
 
-#ifndef RGBACOLOR
-#define UIColorFromRGBA(rgbValue, a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
-#define UIColorFromRGB(rgbValue) UIColorFromRGBA(rgbValue, 1.f)
-#endif
 
-@interface HFFiixableBaseScrollViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+
+@interface HFFiixableBaseScrollViewController ()
 
 @end
 
@@ -23,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = UIColorFromRGB(0xffffff);
     
     UICollectionViewFlowLayout *_contentLayout = [UICollectionViewFlowLayout new];
     _contentLayout.minimumLineSpacing = 0;

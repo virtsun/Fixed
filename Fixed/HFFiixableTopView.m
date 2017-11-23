@@ -74,12 +74,23 @@
     self.tableHeaderView = banner;
     
 }
-- (NSInteger)numberOfBannerCount{
+
+#pragma mark --
+#pragma mark -- Banner
+- (NSInteger)numberOfBanners:(HFLoopBannerView *)bannerView{
     return 6;
 }
-- (CGSize)sizeOfBanner{
+- (CGSize)sizeOfItemAt:(HFLoopBannerView *)bannerView{
     return CGSizeMake(300, 160);
 }
+- (CGFloat)mutipleOfBannerAt:(HFLoopBannerView *)bannerView{
+    return 0;
+}
+
+- (CGFloat)marginOfItemsAt:(HFLoopBannerView *)bannerView{
+    return 10;
+}
+
 - (UICollectionViewCell *)bannerView:(HFLoopBannerView *)bannerView
                         ReusableView:(UICollectionViewCell *)reusableView
                              atIndex:(NSInteger)index{

@@ -20,6 +20,7 @@
 		D4E0CAB01FBE80780004E53B /* HFFiixableBaseScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAAF1FBE80780004E53B /* HFFiixableBaseScrollViewController.m */; };
 		D4E0CAB31FBE8B990004E53B /* UIScrollView+Fiixable.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAB21FBE8B990004E53B /* UIScrollView+Fiixable.m */; };
 		D4E0CAB61FC27AEE0004E53B /* HFLoopBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAB51FC27AEE0004E53B /* HFLoopBannerView.m */; };
+		D4E0CAC51FC690D70004E53B /* HFFuturStarAllViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAC41FC690D60004E53B /* HFFuturStarAllViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,8 @@
 		D4E0CAB21FBE8B990004E53B /* UIScrollView+Fiixable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Fiixable.m"; sourceTree = "<group>"; };
 		D4E0CAB41FC27AEE0004E53B /* HFLoopBannerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFLoopBannerView.h; sourceTree = "<group>"; };
 		D4E0CAB51FC27AEE0004E53B /* HFLoopBannerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFLoopBannerView.m; sourceTree = "<group>"; };
+		D4E0CAC31FC690D60004E53B /* HFFuturStarAllViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFuturStarAllViewController.h; sourceTree = "<group>"; };
+		D4E0CAC41FC690D60004E53B /* HFFuturStarAllViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFuturStarAllViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +124,8 @@
 				D4E0CAB21FBE8B990004E53B /* UIScrollView+Fiixable.m */,
 				D4E0CAB41FC27AEE0004E53B /* HFLoopBannerView.h */,
 				D4E0CAB51FC27AEE0004E53B /* HFLoopBannerView.m */,
+				D4E0CAC31FC690D60004E53B /* HFFuturStarAllViewController.h */,
+				D4E0CAC41FC690D60004E53B /* HFFuturStarAllViewController.m */,
 			);
 			path = Fixed;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				D4E0CAB31FBE8B990004E53B /* UIScrollView+Fiixable.m in Sources */,
 				D4E0CA921FBA8E400004E53B /* HFFiixableScrollView.m in Sources */,
 				D4E0CAB01FBE80780004E53B /* HFFiixableBaseScrollViewController.m in Sources */,
+				D4E0CAC51FC690D70004E53B /* HFFuturStarAllViewController.m in Sources */,
 				D4E0CAB61FC27AEE0004E53B /* HFLoopBannerView.m in Sources */,
 				D4E0CA951FBA965D0004E53B /* UIView+Ext.m in Sources */,
 				D4E0CA981FBC11690004E53B /* HFFiixableTopView.m in Sources */,

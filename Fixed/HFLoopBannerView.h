@@ -18,9 +18,10 @@
 @protocol HFLoopBannerDataSource <NSObject>
 
 @optional
-- (NSInteger)numberOfBannerCount;
-- (CGSize)sizeOfBanner;
-- (CGFloat)mutipleOfBanner;//缩放系数默认0.1
+- (NSInteger)numberOfBanners:(HFLoopBannerView *)bannerView;
+- (CGSize)sizeOfItemAt:(HFLoopBannerView *)bannerView;
+- (CGFloat)marginOfItemsAt:(HFLoopBannerView *)bannerView;
+- (CGFloat)mutipleOfBannerAt:(HFLoopBannerView *)bannerView;//缩放系数默认0.1
 - (UICollectionViewCell *)bannerView:(HFLoopBannerView *)bannerView
                             ReusableView:(UICollectionViewCell *)reusableView
                                  atIndex:(NSInteger)index;

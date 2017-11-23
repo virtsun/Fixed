@@ -10,9 +10,10 @@
 #import "HFFiixableScrollView.h"
 #import <TYTabPagerController.h>
 #import "HFFiixableTopView.h"
-#import "HFFiixableBaseScrollViewController.h"
+#import "HFFuturStarAllViewController.h"
 #import "UIScrollView+Fiixable.h"
 #import <MJRefresh/MJRefresh.h>
+
 
 @interface ViewController ()
 <HFFiixableScrollViewDataSource,
@@ -23,6 +24,7 @@ HFFiixableScrollViewDelegate>
 
 @property (nonatomic, strong) HFFiixableTopView *topView;
 @property (nonatomic, strong) TYTabPagerController *pagerController;
+@property (nonatomic, strong) HFFuturStarAllViewController *allVC;
 @end
 
 @implementation ViewController{
@@ -76,7 +78,7 @@ HFFiixableScrollViewDelegate>
 }
 
 - (UIView *)fiixiableOfFiixiableScroll{
-    if (!_pagerController){
+    /*if (!_pagerController){
         _pagerController = [[TYTabPagerController alloc] init];
         _pagerController.tabBar.contentInset = UIEdgeInsetsMake(20, 20, 0, 20);
         [_pagerController setTabBarHeight:44];
@@ -92,6 +94,15 @@ HFFiixableScrollViewDelegate>
     }
     _pagerController.view.frame = self.view.bounds;
     return _pagerController.view;
+     */
+    if (!_allVC){
+        _allVC = [[HFFuturStarAllViewController alloc] init];
+        _allVC.delegate = self;
+    }
+
+    _allVC.view.frame = self.view.bounds;
+    return _allVC.view;
+    
 }
 - (UIView *)scaleHeaderOfFiixiableScroll{
     UILabel *_tipLabel = [[UILabel alloc] init];

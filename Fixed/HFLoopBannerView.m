@@ -14,6 +14,8 @@
 @interface HFLoopBannerView ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UICollectionViewFlowLayout *contentLayout;
+
 @property (nonatomic, assign) CGSize itemSize;
 @property (nonatomic, assign) NSInteger itemCount;
 
@@ -32,7 +34,7 @@
         // Do any additional setup after loading the view.
         self.backgroundColor = [UIColor whiteColor];
         
-        UICollectionViewFlowLayout *_contentLayout = [UICollectionViewFlowLayout new];
+        _contentLayout = [UICollectionViewFlowLayout new];
         _contentLayout.minimumLineSpacing = 0;
         _contentLayout.minimumInteritemSpacing = 0;
         _contentLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -113,15 +115,19 @@
 
 - (void)reloadData{
     _itemCount = 0;
-    if ([_dataSource respondsToSelector:@selector(numberOfBannerCount)]){
-        _itemCount = [_dataSource numberOfBannerCount];
+    if ([_dataSource respondsToSelector:@selector(numberOfBanners:)]){
+        _itemCount = [_dataSource numberOfBanners:self];
     }
     
-    if ([_dataSource respondsToSelector:@selector(sizeOfBanner)]){
-        _itemSize = [_dataSource sizeOfBanner];
+    if ([_dataSource respondsToSelector:@selector(sizeOfItemAt:)]){
+        _itemSize = [_dataSource sizeOfItemAt:self];
     }
-    if ([_dataSource respondsToSelector:@selector(mutipleOfBanner)]){
-        multiple = [_dataSource mutipleOfBanner];
+    if ([_dataSource respondsToSelector:@selector(mutipleOfBannerAt:)]){
+        multiple = [_dataSource mutipleOfBannerAt:self];
+    }
+    
+    if ([_dataSource respondsToSelector:@selector(marginOfItemsAt:)]){
+        _contentLayout.minimumLineSpacing = [_dataSource marginOfItemsAt:self];
     }
     
     [_collectionView reloadData];
