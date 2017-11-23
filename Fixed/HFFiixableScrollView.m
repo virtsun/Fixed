@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong) UIButton *backToTopButton;
 @property (nonatomic, assign) BOOL fiexed;
+@property (nonatomic, assign) BOOL locked;
 
 @end
 
@@ -48,6 +49,10 @@
     if (_fiexed == fiexed) return;
     _fiexed = fiexed;
     _backToTopButton.hidden = !fiexed;
+    
+    if (fiexed){
+        _locked = YES;
+    }
     
     if ([_delegate respondsToSelector:@selector(fiixiable:)]){
         [_delegate fiixiable:!_fiexed];
@@ -133,7 +138,7 @@
     [_scrollView setContentOffset:CGPointZero animated:NO];
 }
 - (void)scrollToTop{
-
+    _locked = NO;
     NSMutableArray *array = [@[] mutableCopy];
     
     if ([_contentView findSubView:[UIScrollView class] allSameType:YES container:array]){
@@ -218,8 +223,13 @@ NSTimeInterval intervalStart;
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
- //   if (!scrollView.scrollEnabled) return;
-    
+    if (_locked){
+        [_scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(_contentView.frame))];
+
+        return;
+        
+    }
+        
     if (scrollView != _scrollView){
         self.fiexed = round(_scrollView.contentOffset.y - CGRectGetMinY(_contentView.frame)) >= 0;
         CGFloat offsetY = scrollView.contentOffset.y + _scrollView.contentOffset.y;
