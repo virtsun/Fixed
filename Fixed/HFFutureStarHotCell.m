@@ -38,7 +38,7 @@
     return 1;
 }
 - (NSInteger)numberOfBanners:(HFLoopBannerView *)bannerView{
-    return 6;
+    return 3;
 }
 - (CGSize)sizeOfItemAt:(HFLoopBannerView *)bannerView{
     return CGSizeMake(255, CGRectGetHeight(bannerView.bounds) * .8f);

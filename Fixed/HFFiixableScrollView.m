@@ -64,9 +64,11 @@
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.delaysContentTouches = NO;
     
     if(@available(iOS 11.0, *)){
         _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        _scrollView.scrollEnabled = NO;
     }
 
     _scrollView.delegate = self;
@@ -151,6 +153,8 @@
 }
 - (void)scrollToTop{
     _locked = NO;
+    _scrollView.scrollEnabled = YES;
+    
     NSMutableArray *array = [@[] mutableCopy];
     
     if ([_contentView findSubView:[UIScrollView class] allSameType:YES container:array]){

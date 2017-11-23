@@ -21,7 +21,7 @@
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     layout.minimumLineSpacing = 10;
     layout.minimumInteritemSpacing = 10;
-  //  layout.sectionHeadersPinToVisibleBounds = YES;
+    layout.sectionHeadersPinToVisibleBounds = YES;
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"UICollectionViewHeader"];
     [self.collectionView registerClass:[HFFutureStarHotCell class]
             forCellWithReuseIdentifier:NSStringFromClass([HFFutureStarHotCell class])];
@@ -64,9 +64,7 @@
         cell.backgroundColor = UIColorFromRGB(arc4random());
         
         cell.layer.cornerRadius = 4;
-        cell.layer.shadowColor = UIColorFromRGB(arc4random()).CGColor;
-        cell.layer.shadowOpacity = 1.f;
-        cell.layer.shadowOffset = CGSizeMake(1, 1);
+
         return cell;
     }
 }

@@ -24,6 +24,7 @@
 		D4E0CAC81FC696350004E53B /* HFFutureStarHotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAC71FC696350004E53B /* HFFutureStarHotCell.m */; };
 		D4E0CACB1FC69EA10004E53B /* HFFutureTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CACA1FC69EA10004E53B /* HFFutureTopCell.m */; };
 		D4E0CACE1FC6AA280004E53B /* HFFutureTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CACD1FC6AA280004E53B /* HFFutureTipView.m */; };
+		D4E0CAD11FC6B74C0004E53B /* HFFutureStarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAD01FC6B74C0004E53B /* HFFutureStarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,8 @@
 		D4E0CACA1FC69EA10004E53B /* HFFutureTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFutureTopCell.m; sourceTree = "<group>"; };
 		D4E0CACC1FC6AA280004E53B /* HFFutureTipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFutureTipView.h; sourceTree = "<group>"; };
 		D4E0CACD1FC6AA280004E53B /* HFFutureTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFutureTipView.m; sourceTree = "<group>"; };
+		D4E0CACF1FC6B74C0004E53B /* HFFutureStarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFutureStarViewController.h; sourceTree = "<group>"; };
+		D4E0CAD01FC6B74C0004E53B /* HFFutureStarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFutureStarViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +144,8 @@
 				D4E0CACA1FC69EA10004E53B /* HFFutureTopCell.m */,
 				D4E0CACC1FC6AA280004E53B /* HFFutureTipView.h */,
 				D4E0CACD1FC6AA280004E53B /* HFFutureTipView.m */,
+				D4E0CACF1FC6B74C0004E53B /* HFFutureStarViewController.h */,
+				D4E0CAD01FC6B74C0004E53B /* HFFutureStarViewController.m */,
 			);
 			path = Fixed;
 			sourceTree = "<group>";
@@ -270,6 +275,7 @@
 				D4E0CACE1FC6AA280004E53B /* HFFutureTipView.m in Sources */,
 				D4E0CAB31FBE8B990004E53B /* UIScrollView+Fiixable.m in Sources */,
 				D4E0CAC81FC696350004E53B /* HFFutureStarHotCell.m in Sources */,
+				D4E0CAD11FC6B74C0004E53B /* HFFutureStarViewController.m in Sources */,
 				D4E0CA921FBA8E400004E53B /* HFFiixableScrollView.m in Sources */,
 				D4E0CAB01FBE80780004E53B /* HFFiixableBaseScrollViewController.m in Sources */,
 				D4E0CAC51FC690D70004E53B /* HFFutureStarAllViewController.m in Sources */,
