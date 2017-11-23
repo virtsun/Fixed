@@ -41,6 +41,7 @@
 @property (nonatomic, weak) id<HFLoopBannerDelegate> delegate;
 @property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, assign) NSInteger autoLoopTimes;
+@property (nonatomic, assign) BOOL enableInfiniteLoop;//默认yes
 
 - (void)registerClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier;
 - (void)reloadData;

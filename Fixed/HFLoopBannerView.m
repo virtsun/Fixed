@@ -27,30 +27,31 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]){
+ 
+        _enableInfiniteLoop = YES;
+        // Do any additional setup after loading the view.
+        self.backgroundColor = [UIColor whiteColor];
+        
+        UICollectionViewFlowLayout *_contentLayout = [UICollectionViewFlowLayout new];
+        _contentLayout.minimumLineSpacing = 0;
+        _contentLayout.minimumInteritemSpacing = 0;
+        _contentLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_contentLayout];
+        _collectionView.backgroundColor = [UIColor clearColor];
+        
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.alwaysBounceHorizontal = YES;
+        
+        _identifier = NSStringFromClass([self class]);
+        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:_identifier];
+        
+        [self addSubview:_collectionView];
         
     }
-    // Do any additional setup after loading the view.
-    self.backgroundColor = [UIColor whiteColor];
-    
-    UICollectionViewFlowLayout *_contentLayout = [UICollectionViewFlowLayout new];
-    _contentLayout.minimumLineSpacing = 0;
-    _contentLayout.minimumInteritemSpacing = 0;
-    _contentLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    
-    _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_contentLayout];
-    _collectionView.backgroundColor = [UIColor clearColor];
-    
-    _collectionView.dataSource = self;
-    _collectionView.delegate = self;
-    _collectionView.showsHorizontalScrollIndicator = NO;
-    _collectionView.showsVerticalScrollIndicator = NO;
-    _collectionView.alwaysBounceHorizontal = YES;
-    
-    _identifier = NSStringFromClass([self class]);
-    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:_identifier];
-    
-    [self addSubview:_collectionView];
-   
     return self;
 }
 
@@ -66,13 +67,19 @@
 }
 #pragma mark --
 #pragma mark -- Setter & Getter
+- (void)setEnableInfiniteLoop:(BOOL)enableInfiniteLoop{
+    _enableInfiniteLoop = enableInfiniteLoop;
+    self.autoLoopTimes = _autoLoopTimes;
+    
+    [self reloadData];
+}
 
 - (void)setDataSource:(id<HFLoopBannerDataSource>)dataSource{
     _dataSource = dataSource;
     [self reloadData];
 }
 - (void)setAutoLoopTimes:(NSInteger)autoLoopTimes{
-    if ((_autoLoopTimes = autoLoopTimes) > 0){
+    if ((_autoLoopTimes = autoLoopTimes) > 0 && _enableInfiniteLoop){
         [_timer invalidate];
         _timer = [NSTimer scheduledTimerWithTimeInterval:3.f repeats:YES block:^(NSTimer * _Nonnull timer) {
             [_collectionView performBatchUpdates:^{
@@ -119,7 +126,9 @@
     
     [_collectionView reloadData];
     
-    self.selectedIndex = ((MAX_COUNT/_itemCount)/2) * _itemCount;
+    if (_itemCount <= 0) return;
+    
+    self.selectedIndex = _enableInfiniteLoop?(((MAX_COUNT/_itemCount)/2) * _itemCount):0;
     [_collectionView performBatchUpdates:^{
         [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex  inSection:0]
                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
@@ -131,7 +140,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _itemCount>0?MAX_COUNT:0;
+    return _enableInfiniteLoop?(_itemCount>0?MAX_COUNT:0):_itemCount;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -224,7 +233,7 @@
     
     NSInteger target = ((MAX_COUNT/_itemCount)/2) * _itemCount + (self.selectedIndex) %_itemCount;
     
-    if (labs(target - self.selectedIndex) > 10){
+    if (labs(target - self.selectedIndex) > 10 && _enableInfiniteLoop){
         self.selectedIndex = autoLoop?target - 1:target;
         [_collectionView performBatchUpdates:^{
             [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex  inSection:0]

@@ -77,7 +77,8 @@
     HFLoopBannerView *banner = [[HFLoopBannerView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 200)];
     
     [banner registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"eeee"];
-    
+    banner.enableInfiniteLoop = NO;
+
     banner.dataSource = self;
     banner.autoLoopTimes = 3;
     
