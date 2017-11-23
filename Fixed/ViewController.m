@@ -93,6 +93,21 @@ HFFiixableScrollViewDelegate>
     _pagerController.view.frame = self.view.bounds;
     return _pagerController.view;
 }
+- (UIView *)scaleHeaderOfFiixiableScroll{
+    UILabel *_tipLabel = [[UILabel alloc] init];
+    _tipLabel.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 100);
+    _tipLabel.text = @"产品定位 偶像工厂直明星打造基地\n有234名偶像等待发现，已经发现238名偶像";
+    _tipLabel.textColor = [UIColor whiteColor];
+    _tipLabel.numberOfLines = 2;
+    _tipLabel.textAlignment = NSTextAlignmentCenter;
+    _tipLabel.backgroundColor = [UIColor grayColor];
+    _tipLabel.font = [UIFont systemFontOfSize:12];
+    
+    return _tipLabel;
+}
+- (CGFloat)scaleHeaderMinHeightOfFiixiableScroll{
+    return 30;
+}
 - (void)fiixiable:(BOOL)fixed{
     for (int i = 0; i < [self numberOfControllersInTabPagerController]; i++){
         HFFiixableBaseScrollViewController *vc = (HFFiixableBaseScrollViewController*)[_pagerController.pagerController controllerForIndex:i];

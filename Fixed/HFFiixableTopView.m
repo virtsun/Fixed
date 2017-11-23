@@ -57,18 +57,7 @@
         self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     
-    _tipLabel = [[UILabel alloc] init];
-    _tipLabel.frame = CGRectMake(0, -60, CGRectGetWidth(self.bounds), 60);
-    _tipLabel.text = _enableShortTip?@"有234名偶像等待发现，已经发现238名偶像":@"产品定位 偶像工厂直明星打造基地\n有234名偶像等待发现，已经发现238名偶像";
-    _tipLabel.textColor = [UIColor whiteColor];
-    _tipLabel.numberOfLines = 2;
-    _tipLabel.textAlignment = NSTextAlignmentCenter;
-  //  _tipLabel.backgroundColor = [UIColor grayColor];
-    _tipLabel.font = [UIFont systemFontOfSize:12];
-    
-    [self addSubview:_tipLabel];
-    
-    self.contentInset = UIEdgeInsetsMake(CGRectGetHeight(_tipLabel.bounds), 0, 0, 0);
+
     
 
 }

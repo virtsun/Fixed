@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UIView *scaleheaderView;
+@property (nonatomic, assign) CGFloat minHeightScaleHeader;
 
 @property (nonatomic, strong) UIButton *backToTopButton;
 @property (nonatomic, assign) BOOL fiexed;
@@ -81,6 +83,23 @@
 }
 - (void)reloadlayout{
     _scrollView.frame = self.bounds;
+    _minHeightScaleHeader = 0;
+    if ([_dataSource respondsToSelector:@selector(scaleHeaderMinHeightOfFiixiableScroll)]){
+        _minHeightScaleHeader = [_dataSource scaleHeaderMinHeightOfFiixiableScroll];
+    }
+    
+    if ([_dataSource respondsToSelector:@selector(scaleHeaderOfFiixiableScroll)]){
+        
+        _scaleheaderView = [_dataSource scaleHeaderOfFiixiableScroll];
+        
+        if (![_scrollView.subviews containsObject:_scaleheaderView]){
+            [_scrollView addSubview:_scaleheaderView];
+        }
+        _scaleheaderView.frame = CGRectMake((CGRectGetWidth(_scrollView.bounds) - CGRectGetWidth(_scaleheaderView.bounds))/2,
+                                            0,
+                                       CGRectGetWidth(_scrollView.bounds),
+                                            CGRectGetHeight(_scaleheaderView.bounds));
+    }
 
     if ([_dataSource respondsToSelector:@selector(headerOfFiixiableScroll)]){
 
@@ -89,8 +108,10 @@
         if (![_scrollView.subviews containsObject:_headerView]){
             [_scrollView addSubview:_headerView];
         }
-        _headerView.frame = CGRectMake((CGRectGetWidth(_scrollView.bounds) - CGRectGetWidth(_headerView.bounds))/2, 0,
-                                       CGRectGetWidth(_scrollView.bounds), CGRectGetHeight(_headerView.bounds));
+        _headerView.frame = CGRectMake((CGRectGetWidth(_scrollView.bounds) - CGRectGetWidth(_headerView.bounds))/2,
+                                       CGRectGetMaxY(_scaleheaderView.frame),
+                                       CGRectGetWidth(_scrollView.bounds),
+                                       CGRectGetHeight(_headerView.bounds));
     }
     
     if ([_dataSource respondsToSelector:@selector(fiixiableOfFiixiableScroll)]){
@@ -177,6 +198,24 @@ NSTimeInterval intervalStart;
 
 }
 
+- (void)reloadlayoutWithOffset:(CGFloat)offset{
+    CGFloat scaleHeight = MAX(CGRectGetHeight(_scaleheaderView.bounds) - offset, _minHeightScaleHeader);
+    _scaleheaderView.frame = CGRectMake((CGRectGetWidth(_scrollView.bounds) - CGRectGetWidth(_scaleheaderView.bounds))/2,
+                                        0,
+                                        CGRectGetWidth(_scrollView.bounds),
+                                        scaleHeight);
+    _headerView.frame = CGRectMake((CGRectGetWidth(_scrollView.bounds) - CGRectGetWidth(_headerView.bounds))/2,
+                                   CGRectGetMaxY(_scaleheaderView.frame),
+                                   CGRectGetWidth(_scrollView.bounds),
+                                   CGRectGetHeight(_headerView.bounds));
+    
+    _contentView.frame = CGRectMake((CGRectGetWidth(_scrollView.bounds) - CGRectGetWidth(_contentView.bounds))/2, CGRectGetMaxY(_headerView.frame),
+                                    CGRectGetWidth(_scrollView.bounds), CGRectGetHeight(_contentView.bounds));
+    
+    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.bounds), CGRectGetMaxY(_contentView.frame));
+
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
  //   if (!scrollView.scrollEnabled) return;
@@ -191,7 +230,12 @@ NSTimeInterval intervalStart;
                 _scrollView.contentOffset = offset;
                 NSLog(@"%@", NSStringFromCGPoint(offset));
             }else{
-                [_scrollView setContentOffset:CGPointMake(0, MAX(HFFiixableScrollViewMinOffsetY,offsetY))];
+                if (_scrollView.contentOffset.y > 0 && CGRectGetHeight(_scaleheaderView.bounds) > _minHeightScaleHeader){
+                    [self reloadlayoutWithOffset:offsetY];
+                    [_scrollView setContentOffset:CGPointZero];
+                }else{
+                    [_scrollView setContentOffset:CGPointMake(0, MAX(HFFiixableScrollViewMinOffsetY,offsetY))];
+                }
             }
             [scrollView setContentOffset:CGPointZero];
         } else if (scrollView.contentOffset.y <= 0 && !self.fiexed) {
@@ -204,6 +248,11 @@ NSTimeInterval intervalStart;
 
         if (self.fiexed) {
             [_scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(_contentView.frame))];
+        }else{
+            if (_scrollView.contentOffset.y > 0 && CGRectGetHeight(_scaleheaderView.bounds) > _minHeightScaleHeader){
+                [self reloadlayoutWithOffset:_scrollView.contentOffset.y];
+                [_scrollView setContentOffset:CGPointZero];
+            }
         }
     }
 }

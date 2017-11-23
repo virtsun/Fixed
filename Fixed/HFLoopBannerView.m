@@ -98,7 +98,7 @@
 }
 
 - (void)startTimer{
-    if (_timerStop){
+    if (_timerStop && _enableInfiniteLoop&& _autoLoopTimes > 0){
         [_timer performSelector:@selector(setFireDate:) withObject:[NSDate distantPast] afterDelay:_autoLoopTimes];
         _timerStop = NO;
     }
@@ -127,6 +127,8 @@
     [_collectionView reloadData];
     
     if (_itemCount <= 0) return;
+    
+    _collectionView.contentInset = UIEdgeInsetsMake(0, (CGRectGetWidth(_collectionView.bounds) - _itemSize.width)/2, 0, (CGRectGetWidth(_collectionView.bounds) - _itemSize.width)/2);
     
     self.selectedIndex = _enableInfiniteLoop?(((MAX_COUNT/_itemCount)/2) * _itemCount):0;
     [_collectionView performBatchUpdates:^{
@@ -164,7 +166,9 @@
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    
+    if ((targetContentOffset->x == 0 && scrollView.contentOffset.x < 0) ||(targetContentOffset->x == (scrollView.contentSize.width - CGRectGetWidth(scrollView.bounds)) && scrollView.contentSize.width < scrollView.contentOffset.x) ) {
+        return;
+    }
     NSArray<UICollectionViewCell *> *visibleCells = self.collectionView.visibleCells;
     UICollectionViewCell *targetCell = [visibleCells firstObject];
     

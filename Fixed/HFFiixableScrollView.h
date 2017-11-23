@@ -18,8 +18,13 @@
 
 @protocol HFFiixableScrollViewDataSource <NSObject>
 
+@required
 - (UIView *)headerOfFiixiableScroll;
 - (UIView *)fiixiableOfFiixiableScroll;
+
+@optional
+- (UIView *)scaleHeaderOfFiixiableScroll;
+- (CGFloat)scaleHeaderMinHeightOfFiixiableScroll;
 
 @end
 
