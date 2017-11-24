@@ -25,6 +25,7 @@
 		D4E0CACB1FC69EA10004E53B /* HFFutureTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CACA1FC69EA10004E53B /* HFFutureTopCell.m */; };
 		D4E0CACE1FC6AA280004E53B /* HFFutureTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CACD1FC6AA280004E53B /* HFFutureTipView.m */; };
 		D4E0CAD11FC6B74C0004E53B /* HFFutureStarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0CAD01FC6B74C0004E53B /* HFFutureStarViewController.m */; };
+		D4EFC9211FC7F37500DA8113 /* HFGradientCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EFC9201FC7F37500DA8113 /* HFGradientCollectionCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,8 @@
 		D4E0CACD1FC6AA280004E53B /* HFFutureTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFutureTipView.m; sourceTree = "<group>"; };
 		D4E0CACF1FC6B74C0004E53B /* HFFutureStarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFFutureStarViewController.h; sourceTree = "<group>"; };
 		D4E0CAD01FC6B74C0004E53B /* HFFutureStarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFFutureStarViewController.m; sourceTree = "<group>"; };
+		D4EFC91F1FC7F37500DA8113 /* HFGradientCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFGradientCollectionCell.h; sourceTree = "<group>"; };
+		D4EFC9201FC7F37500DA8113 /* HFGradientCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFGradientCollectionCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +149,8 @@
 				D4E0CACD1FC6AA280004E53B /* HFFutureTipView.m */,
 				D4E0CACF1FC6B74C0004E53B /* HFFutureStarViewController.h */,
 				D4E0CAD01FC6B74C0004E53B /* HFFutureStarViewController.m */,
+				D4EFC91F1FC7F37500DA8113 /* HFGradientCollectionCell.h */,
+				D4EFC9201FC7F37500DA8113 /* HFGradientCollectionCell.m */,
 			);
 			path = Fixed;
 			sourceTree = "<group>";
@@ -279,6 +284,7 @@
 				D4E0CA921FBA8E400004E53B /* HFFiixableScrollView.m in Sources */,
 				D4E0CAB01FBE80780004E53B /* HFFiixableBaseScrollViewController.m in Sources */,
 				D4E0CAC51FC690D70004E53B /* HFFutureStarAllViewController.m in Sources */,
+				D4EFC9211FC7F37500DA8113 /* HFGradientCollectionCell.m in Sources */,
 				D4E0CAB61FC27AEE0004E53B /* HFLoopBannerView.m in Sources */,
 				D4E0CA951FBA965D0004E53B /* UIView+Ext.m in Sources */,
 				D4E0CA981FBC11690004E53B /* HFFutureTopView.m in Sources */,

@@ -7,10 +7,12 @@
 //
 
 #import "HFFutureTopCell.h"
+#import "HFGradientCollectionCell.h"
 
 @interface HFFutureTopCell()
 
 @property (nonatomic, strong) UICollectionViewFlowLayout *contentLayout;
+@property (nonatomic, strong) UIImageView *topCImageView;
 
 @end
 
@@ -21,10 +23,17 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]){
         _numberOfLines = 1;
         
+        _topCImageView = [[UIImageView alloc] init];
+        _topCImageView.image = [UIImage imageNamed:@"home_content_bg"];
+        [_topCImageView sizeToFit];
+        
+        [self addSubview:_topCImageView];
+        
+        
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.font = [UIFont systemFontOfSize:20];
+        _titleLabel.textColor = UIColorFromRGBA(0x969696, 1.f);
+        _titleLabel.frame = CGRectMake(10, 16, CGRectGetWidth(self.bounds) - 100, 18);
+        _titleLabel.font = [UIFont systemFontOfSize:18];
         [self addSubview:_titleLabel];
         
         _contentLayout = [UICollectionViewFlowLayout new];
@@ -44,7 +53,7 @@
         
         [self addSubview:_collectionView];
         
-        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([self class])];
+        [_collectionView registerClass:[HFGradientCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([self class])];
         
     }
     
@@ -53,7 +62,7 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     _titleLabel.frame = CGRectMake(16, 20, CGRectGetWidth(self.bounds) - 32, 20);
-
+    _topCImageView.frame = CGRectMake(CGRectGetWidth(self.bounds) - CGRectGetWidth(_topCImageView.bounds), 0, CGRectGetWidth(_topCImageView.bounds), CGRectGetHeight(_topCImageView.bounds));
     _collectionView.frame = CGRectMake(16, CGRectGetMaxY(_titleLabel.frame) + 10, CGRectGetWidth(_titleLabel.bounds), CGRectGetHeight(self.frame) - 10 - CGRectGetMaxY(_titleLabel.frame) - 10);
 }
 #pragma mark --
@@ -74,10 +83,11 @@
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:NSStringFromClass([self class]) forIndexPath:indexPath];
+    HFGradientCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:NSStringFromClass([self class]) forIndexPath:indexPath];
     cell.backgroundColor = UIColorFromRGB(arc4random());
-    cell.layer.cornerRadius = 4;
-    
+    cell.cornerRadius = 3;
+    cell.borderWidth = 3;
+
     return cell;
 }
 

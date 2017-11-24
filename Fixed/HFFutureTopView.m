@@ -36,11 +36,10 @@
 #pragma mark --
 #pragma mark -- Layout
 - (void)setupTableView{
-    
+    self.backgroundColor = [UIColor clearColor];
     self.delegate = self;
     self.dataSource = self;
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.backgroundColor = [UIColor grayColor];
     self.scrollEnabled = NO;
     
     [self registerClass:[HFFutureTopCell class] forCellReuseIdentifier:NSStringFromClass([self class])];
@@ -52,51 +51,54 @@
 }
 
 - (void)setBanner{
-    HFLoopBannerView *banner = [[HFLoopBannerView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 200)];
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), 190)];
+    
+    HFLoopBannerView *banner = [[HFLoopBannerView alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.bounds), 180)];
     
     [banner registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"eeee"];
 //    banner.enableInfiniteLoop = NO;
-
+    banner.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:.1f];
     banner.dataSource = self;
     banner.autoLoopTimes = 3;
+  
+    [header addSubview:banner];
     
-    self.tableHeaderView = banner;
+    self.tableHeaderView = header;
 }
 - (void)setFooter{
     UIView *footer = [[UIView alloc] init];
-    footer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), 385.f/2);
-    footer.backgroundColor = UIColorFromRGBA(arc4random(), 0.5f);
-    
-    UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.frame = CGRectMake(0, 36, CGRectGetWidth(footer.frame), 20);
-    titleLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = [UIFont systemFontOfSize:20];
-    titleLabel.text = @"明日之星榜";
-    [footer addSubview:titleLabel];
-    
-    CGFloat width = round((CGRectGetWidth(footer.bounds) - 10 * 4)/3);
-    
-    UIButton *board = [UIButton buttonWithType:UIButtonTypeCustom];
-    board.frame = CGRectMake(10, CGRectGetMaxY(titleLabel.frame) + 40, width, 50);
-    [board setTitle:@"总排行榜" forState: UIControlStateNormal];
-    [board setTitleColor:UIColorFromRGB(arc4random()) forState:UIControlStateNormal];
-    
-    [footer addSubview:board];
 
-    board = [UIButton buttonWithType:UIButtonTypeCustom];
-    board.frame = CGRectMake(10 + (width + 10), CGRectGetMaxY(titleLabel.frame)+ 40, width, 50);
-    [board setTitle:@"月排行榜" forState: UIControlStateNormal];
-    [board setTitleColor:UIColorFromRGB(arc4random()) forState:UIControlStateNormal];
+    UIImageView *bgImageView = [[UIImageView alloc] init];
+    bgImageView.image = [UIImage imageNamed:@"home_bg_ranked"];
+    [bgImageView sizeToFit];
     
-    [footer addSubview:board];
+    footer.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(bgImageView.bounds));
+    bgImageView.frame = footer.bounds;
     
-    board = [UIButton buttonWithType:UIButtonTypeCustom];
-    board.frame = CGRectMake(10 + (width + 10) * 2, CGRectGetMaxY(titleLabel.frame)+ 40, width, 50);
-    [board setTitle:@"周排行榜" forState: UIControlStateNormal];
-    [board setTitleColor:UIColorFromRGB(arc4random()) forState:UIControlStateNormal];
+    [footer addSubview:bgImageView];
     
-    [footer addSubview:board];
+    
+    UIButton *total = [UIButton buttonWithType:UIButtonTypeCustom];
+    [total setImage:[UIImage imageNamed:@"home_btn_ranked_zong"] forState: UIControlStateNormal];
+    [total sizeToFit];
+    [footer addSubview:total];
+    
+    CGFloat margin = round((CGRectGetWidth(footer.bounds) - CGRectGetWidth(total.bounds) * 3)/4);
+    
+    total.center = CGPointMake(margin + CGRectGetWidth(total.bounds)/2, 104 + CGRectGetHeight(total.bounds)/2);
+
+    UIButton *month = [UIButton buttonWithType:UIButtonTypeCustom];
+    [month setImage:[UIImage imageNamed:@"home_btn_ranked_yue"] forState: UIControlStateNormal];
+    [month sizeToFit];
+    month.frame = CGRectOffset(total.frame, CGRectGetWidth(total.bounds) + margin, 0);
+    [footer addSubview:month];
+    
+    UIButton *week = [UIButton buttonWithType:UIButtonTypeCustom];
+    [week setImage:[UIImage imageNamed:@"home_btn_ranked_zhou"] forState: UIControlStateNormal];
+    [week sizeToFit];
+    week.frame = CGRectOffset(month.frame, CGRectGetWidth(month.bounds) + margin, 0);
+
+    [footer addSubview:week];
     
     self.tableFooterView = footer;
 }
@@ -133,21 +135,20 @@
     
     reusableView.backgroundColor = UIColorFromRGB(arc4random());
     reusableView.layer.cornerRadius = 10;
-    reusableView.layer.shadowColor = UIColorFromRGB(arc4random()).CGColor;
-    reusableView.layer.shadowOpacity = 1.f;
-    reusableView.layer.shadowOffset = CGSizeMake(1, 1);
     
     return reusableView;
 }
 #pragma mark --
 #pragma mark -- UITableView
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.row > 0?220 : 300;
+    return indexPath.section > 0?220 : 300;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -155,17 +156,20 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"TopHeader"];
-    header.contentView.backgroundColor = UIColorFromRGB(0xffffff);
     return header;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HFFutureTopCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([self class]) forIndexPath:indexPath];
-    cell.backgroundColor = UIColorFromRGB(0xffffff);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.titleLabel.text = @[@"我关注的", @"新进签约艺人", @"热门直播"][indexPath.row];
-    cell.numberOfLines = indexPath.row > 0?1:2;//行数根据数据源计算
-    cell.scrollDirection =indexPath.row > 0?UICollectionViewScrollDirectionHorizontal:UICollectionViewScrollDirectionVertical;
-    cell.dataSource = indexPath.row > 0?@[@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1"]:@[@"1",@"1",@"1",@"1",@"1",@"1"];
+    cell.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1f];
+    cell.titleLabel.text = @[@"我关注的", @"新进签约艺人", @"热门直播"][indexPath.section];
+    cell.numberOfLines = indexPath.section > 0?1:2;//行数根据数据源计算
+    cell.scrollDirection =indexPath.section > 0?UICollectionViewScrollDirectionHorizontal:UICollectionViewScrollDirectionVertical;
+    cell.dataSource = indexPath.section > 0?@[@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1"]:@[@"1",@"1",@"1",@"1",@"1",@"1"];
 
     return cell;
 }

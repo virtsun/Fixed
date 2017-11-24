@@ -8,6 +8,7 @@
 
 #import "HFFutureStarHotCell.h"
 #import "HFLoopBannerView.h"
+#import "HFGradientCollectionCell.h"
 
 @interface HFFutureStarHotCell()<HFLoopBannerDataSource>
 @end
@@ -25,7 +26,7 @@
 - (void)setBanner{
     HFLoopBannerView *banner = [[HFLoopBannerView alloc] initWithFrame:self.bounds];
     
-    [banner registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"eeee"];
+    [banner registerClass:[HFGradientCollectionCell class] forCellWithReuseIdentifier:@"eeee"];
     banner.enableInfiniteLoop = NO;
     banner.dataSource = self;
     
@@ -52,7 +53,7 @@
 }
 
 - (UICollectionViewCell *)bannerView:(HFLoopBannerView *)bannerView
-                        ReusableView:(UICollectionViewCell *)reusableView
+                        ReusableView:(HFGradientCollectionCell *)reusableView
                              atIndex:(NSInteger)index{
     
     UILabel *label = [reusableView viewWithTag:(NSInteger)@"tag"];
@@ -64,12 +65,13 @@
         [reusableView addSubview:label];
     }
     label.text = [NSString stringWithFormat:@"%lu",index];
-    
+    reusableView.cornerRadius = 3;
+    reusableView.borderWidth = 3;
     reusableView.backgroundColor = UIColorFromRGB(arc4random());
-    reusableView.layer.cornerRadius = 10;
-    reusableView.layer.shadowColor = UIColorFromRGB(arc4random()).CGColor;
-    reusableView.layer.shadowOpacity = 1.f;
-    reusableView.layer.shadowOffset = CGSizeMake(1, 1);
+//    reusableView.layer.shadowColor = UIColorFromRGB(arc4random()).CGColor;
+//    reusableView.layer.shadowOpacity = 1.f;
+//    reusableView.layer.shadowOffset = CGSizeMake(1, 1);
+    reusableView.layer.masksToBounds = YES;
     
     return reusableView;
 }

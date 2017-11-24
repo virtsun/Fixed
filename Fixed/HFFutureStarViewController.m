@@ -38,7 +38,7 @@ HFFiixableScrollViewDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = UIColorFromRGB(0x101622);
     
     _topbar = [[UINavigationBar alloc] init];
     _topbar.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 80);
@@ -114,13 +114,13 @@ HFFiixableScrollViewDelegate>
         _tipView = [[HFFutureTipView alloc] init];
         _tipView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 150);
         _tipView.maxHeight = 150;
-        _tipView.minScaleHeight = 50;
+        _tipView.minScaleHeight = [self scaleHeaderMinHeightOfFiixiableScroll];
     }
     
     return _tipView;
 }
 - (CGFloat)scaleHeaderMinHeightOfFiixiableScroll{
-    return 50;
+    return 40;
 }
 - (void)fiixiableScrollView:(HFFiixableScrollView *)scrollView fixed:(BOOL)fixed{
     for (int i = 0; i < [self numberOfControllersInTabPagerController]; i++){

@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = UIColorFromRGB(0xffffff);
+    self.view.backgroundColor = UIColorFromRGB(0xfffffff);
     
     UICollectionViewFlowLayout *_contentLayout = [UICollectionViewFlowLayout new];
     _contentLayout.minimumLineSpacing = 0;
