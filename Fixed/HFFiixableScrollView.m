@@ -55,9 +55,13 @@
         _scrollView.relationToFiixable = YES;
     }
     
-    if ([_delegate respondsToSelector:@selector(fiixiable:)]){
-        [_delegate fiixiable:!_fiexed];
+    if ([_delegate respondsToSelector:@selector(fiixiableScrollView:fixed:)]){
+        [_delegate fiixiableScrollView:self fixed:!_fiexed];
     }
+}
+- (void)setSafeContentInset:(UIEdgeInsets)safeContentInset{
+    _scrollView.contentInset = _safeContentInset = safeContentInset;
+    [_scrollView setContentOffset:CGPointMake(safeContentInset.left, - safeContentInset.top)];
 }
 #pragma mark --
 #pragma mark -- 基本框架
@@ -68,7 +72,6 @@
     if(@available(iOS 11.0, *)){
         _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-
     _scrollView.delegate = self;
     [self addSubview:_scrollView];
     
@@ -147,7 +150,11 @@
 - (void)reloadData{
     
     [self reloadlayout];
-    [_scrollView setContentOffset:CGPointZero animated:NO];
+    [self scrollToOriginalAnimated:NO];
+}
+- (void)scrollToOriginalAnimated:(BOOL)animated{
+    [_scrollView setContentOffset:CGPointMake(_safeContentInset.left, - _safeContentInset.top) animated:animated];
+    [self caculateProgressToFix];
 }
 - (void)scrollToTop{
     _locked = NO;
@@ -162,8 +169,7 @@
             }
         }];
     }
-    [_scrollView setContentOffset:CGPointZero
-                         animated:YES];
+    [self scrollToOriginalAnimated:YES];
 }
 - (void)backToTop:(id)sender{
     [self scrollToTop];
@@ -181,28 +187,25 @@ NSTimeInterval intervalStart;
     if (scrollView == _scrollView) return;
     CGFloat offsetY = _scrollView.contentOffset.y;
     if (offsetY < 0) {
-        [_scrollView setContentOffset:CGPointZero
-                             animated:YES];
+        [self scrollToOriginalAnimated:YES];
     }
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     //处理因子视图向下拖拽而导致父视图无法回到原位置
     if (scrollView == _scrollView) return;
-    NSLog(@"scrollViewDidEndDragging: %@", @(decelerate));
+//    NSLog(@"scrollViewDidEndDragging: %@", @(decelerate));
     
     if (decelerate){
         CGFloat offsetY = _scrollView.contentOffset.y;
         if (offsetY < 0) {
-            [_scrollView setContentOffset:CGPointZero
-                                 animated:YES];
+            [self scrollToOriginalAnimated:YES];
         }
     }else{
         NSTimeInterval consume = [[NSDate date] timeIntervalSince1970] - intervalStart;
         CGPoint offset = _scrollView.contentOffset;
 
         if (offset.y <= 0){
-            [_scrollView setContentOffset:CGPointZero
-                                 animated:YES];
+            [self scrollToOriginalAnimated:YES];
         }else{
             //加速度处理
             CGFloat offsetY = (offset.y - pointStart.y);
@@ -218,7 +221,7 @@ NSTimeInterval intervalStart;
 }
 
 - (void)reloadlayoutWithOffset:(CGFloat)offset{
-    CGFloat scaleHeight = MAX(CGRectGetHeight(_scaleheaderView.bounds) - offset, _minHeightScaleHeader);
+    CGFloat scaleHeight = MAX(CGRectGetHeight(_scaleheaderView.bounds) - (offset+_safeContentInset.top), _minHeightScaleHeader);
     _scaleheaderView.frame = CGRectMake((CGRectGetWidth(_scrollView.bounds) - CGRectGetWidth(_scaleheaderView.bounds))/2,
                                         0,
                                         CGRectGetWidth(_scrollView.bounds),
@@ -236,7 +239,7 @@ NSTimeInterval intervalStart;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
     
     if (_locked){
 //        if (scrollView == _scrollView && self.relationScrollView){
@@ -244,6 +247,7 @@ NSTimeInterval intervalStart;
 //            [self.relationScrollView setContentOffset:CGPointMake(0, _relationScrollView.contentOffset.y + off)];
 //        }
         [_scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(_contentView.frame))];
+        [self caculateProgressToFix];
 
         return;
     }
@@ -256,13 +260,17 @@ NSTimeInterval intervalStart;
                 CGPoint offset = _scrollView.contentOffset;
                 offset.y += MAX(50/offsetY, offsetY);
                 _scrollView.contentOffset = offset;
-                NSLog(@"%@", NSStringFromCGPoint(offset));
+                [self caculateProgressToFix];
+
             }else{
-                if (_scrollView.contentOffset.y > 0 && CGRectGetHeight(_scaleheaderView.bounds) > _minHeightScaleHeader){
+                if (_scrollView.contentOffset.y > -_safeContentInset.top && CGRectGetHeight(_scaleheaderView.bounds) > _minHeightScaleHeader){
                     [self reloadlayoutWithOffset:offsetY];
-                    [_scrollView setContentOffset:CGPointZero];
+                    [self scrollToOriginalAnimated:NO];
+                    [self caculateProgressToFix];
                 }else{
                     [_scrollView setContentOffset:CGPointMake(0, MAX(HFFiixableScrollViewMinOffsetY,offsetY))];
+                    [self caculateProgressToFix];
+
                 }
             }
             [scrollView setContentOffset:CGPointZero];
@@ -270,19 +278,40 @@ NSTimeInterval intervalStart;
             if (_scrollView.contentOffset.y >= CGRectGetMinY(_contentView.frame)) {
                 [_scrollView setContentOffset:CGPointMake(0, MAX(HFFiixableScrollViewMinOffsetY,offsetY))];
             }
+            [self caculateProgressToFix];
+
         }
     }else{
         self.fiexed = round(_scrollView.contentOffset.y - CGRectGetMinY(_contentView.frame)) >= 0;
 
         if (self.fiexed) {
             [_scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(_contentView.frame))];
+            [self caculateProgressToFix];
+
         }else{
-            if (_scrollView.contentOffset.y > 0 && CGRectGetHeight(_scaleheaderView.bounds) > _minHeightScaleHeader){
+            if (_scrollView.contentOffset.y > -_safeContentInset.top && CGRectGetHeight(_scaleheaderView.bounds) > _minHeightScaleHeader){
                 [self reloadlayoutWithOffset:_scrollView.contentOffset.y];
-                [_scrollView setContentOffset:CGPointZero];
+                [self scrollToOriginalAnimated:NO];
             }
+            [self caculateProgressToFix];
+
         }
     }
+}
+
+- (void)caculateProgressToFix{
+    if ([_delegate respondsToSelector:@selector(fiixiableScrollView:progress:)]){
+        if (_scrollView.contentOffset.y < 0){
+            [_delegate fiixiableScrollView:self progress:0];
+        }else{
+            CGFloat totalH = CGRectGetMinY(_contentView.frame);
+            CGFloat rate = (_scrollView.contentOffset.y)/totalH;
+            CGFloat curve = -1/(10*rate + 1) + 1.1;
+            [_delegate fiixiableScrollView:self progress:curve];
+        }
+ 
+    }
+    
 }
 
 @end

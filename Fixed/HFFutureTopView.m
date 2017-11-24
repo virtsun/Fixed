@@ -19,11 +19,6 @@
 
 @interface HFFutureTopView ()<UITableViewDataSource, UITableViewDelegate, HFLoopBannerDataSource>
 
-@property(nonatomic, strong) UIView *tableViewHeader;
-@property(nonatomic, strong) UILabel *tipLabel;
-
-@property(nonatomic, assign) BOOL enableShortTip;
-
 @end
 
 @implementation HFFutureTopView
@@ -175,43 +170,7 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    
-//    if( [indexPath isEqual:[[tableView indexPathsForVisibleRows] lastObject]]){
-//        CGSize size = [self maxzone];
-//        NSLog(@"max zone = %@", NSStringFromCGSize(size));
-//        CGRect frame = self.frame;
-//        frame.size.width = size.width + self.contentInset.left + self.contentInset.right;
-//        frame.size.height = size.height + self.contentInset.top + self.contentInset.bottom;
-//
-//        self.frame = frame;
-//        
-//        if (self.frame_changed_block){
-//            self.frame_changed_block();
-//        }
-//    }
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    self.enableShortTip = !_enableShortTip;
-
-    [UIView animateWithDuration:.2f animations:^{
-        self.contentInset = UIEdgeInsetsMake(_enableShortTip?30:60, 0, 0, 0);
-        _tipLabel.frame = CGRectMake(0, -(_enableShortTip?30:60), CGRectGetWidth(self.bounds), _enableShortTip?30:60);
-        _tipLabel.text = _enableShortTip?@"有234名偶像等待发现，已经发现238名偶像":@"产品定位 偶像工厂直明星打造基地\n有234名偶像等待发现，已经发现238名偶像";
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:.1f animations:^{
-            [self sizeToFit];
-
-        } completion:^(BOOL finished) {
-            if (self.frame_changed_block){
-                self.frame_changed_block();
-            }
-        }];
-        
-        
-    }];
 }
 @end

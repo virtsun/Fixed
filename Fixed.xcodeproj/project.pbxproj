@@ -425,7 +425,7 @@
 				INFOPLIST_FILE = Fixed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = l.t.zero.Fixed;
+				PRODUCT_BUNDLE_IDENTIFIER = l.t.zero.Scroll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -441,7 +441,7 @@
 				INFOPLIST_FILE = Fixed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = l.t.zero.Fixed;
+				PRODUCT_BUNDLE_IDENTIFIER = l.t.zero.Scroll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

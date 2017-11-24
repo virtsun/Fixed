@@ -26,21 +26,37 @@ HFFiixableScrollViewDelegate>
 @property (nonatomic, strong) TYTabPagerController *pagerController;
 @property (nonatomic, strong) HFFutureStarAllViewController *allVC;
 @property (nonatomic, strong) HFFutureTipView *tipView;
+@property (nonatomic, strong) UINavigationBar *topbar;
 @end
 
 @implementation HFFutureStarViewController{
     HFFiixableScrollView *fii;
 }
-
+- (void)back:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor whiteColor];
     
+    _topbar = [[UINavigationBar alloc] init];
+    _topbar.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 80);
+    _topbar.backgroundColor = UIColorFromRGBA(arc4random(), 1.f);
+    
+    [self.view addSubview:_topbar];
+    
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    back.frame = CGRectMake(16, 20, 60, 60);
+    [back setTitle:@"返回" forState:UIControlStateNormal];
+    [back setTitleColor:UIColorFromRGBA(arc4random(), 1.f) forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    [_topbar addSubview:back];
+    
     fii = [[HFFiixableScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 0)];
     fii.dataSource = self;
     fii.delegate = self;
-    
+    fii.safeContentInset = UIEdgeInsetsMake(CGRectGetHeight(_topbar.frame), 0, 0, 0);
     __weak typeof(fii) weak_fii = fii;
     
     fii.scrollView.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
@@ -50,7 +66,7 @@ HFFiixableScrollViewDelegate>
     }];
     
     
-    [self.view addSubview:fii];
+    [self.view insertSubview:fii atIndex:0];
 }
 
 - (UIView *)headerOfFiixiableScroll{
@@ -106,11 +122,15 @@ HFFiixableScrollViewDelegate>
 - (CGFloat)scaleHeaderMinHeightOfFiixiableScroll{
     return 50;
 }
-- (void)fiixiable:(BOOL)fixed{
+- (void)fiixiableScrollView:(HFFiixableScrollView *)scrollView fixed:(BOOL)fixed{
     for (int i = 0; i < [self numberOfControllersInTabPagerController]; i++){
         HFFiixableBaseScrollViewController *vc = (HFFiixableBaseScrollViewController*)[_pagerController.pagerController controllerForIndex:i];
         [vc.collectionView setContentOffset:CGPointZero];
     }
+}
+- (void)fiixiableScrollView:(HFFiixableScrollView *)scrollView progress:(CGFloat)progress{
+//    NSLog(@"%lf", progress);
+    self.topbar.alpha = 1-progress;
 }
 #pragma mark --
 #pragma mark -- TYTabPagerController

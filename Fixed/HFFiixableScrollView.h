@@ -9,10 +9,17 @@
 @import Foundation;
 @import UIKit;
 
+@class HFFiixableScrollView;
+
 @protocol HFFiixableScrollViewDelegate <NSObject>
 
 @optional
-- (void)fiixiable:(BOOL)fixed;
+- (void)fiixiableScrollView:(HFFiixableScrollView *)scrollView fixed:(BOOL)fixed;
+/*parameters:
+ *scrollView:当前滚动视图容器-大
+ *progress: 距离固定住的进度
+ */
+- (void)fiixiableScrollView:(HFFiixableScrollView *)scrollView progress:(CGFloat)progress;
 
 @end
 
@@ -35,6 +42,8 @@
 
 @property (nonatomic, readonly, strong) UIScrollView *scrollView;
 @property (nonatomic, weak) UIScrollView *relationScrollView;
+
+@property (nonatomic) UIEdgeInsets safeContentInset;
 
 - (void)scrollToTop;
 

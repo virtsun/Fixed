@@ -149,7 +149,6 @@
                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                         animated:YES];
     } completion:^(BOOL finished) {
-        NSLog(@"%@", _collectionView.visibleCells);
         [self scrollLayout:_collectionView loop:NO];
     }];
 }
@@ -179,7 +178,7 @@
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    if ((targetContentOffset->x == 0 && scrollView.contentOffset.x < 0) ||(targetContentOffset->x == (scrollView.contentSize.width - CGRectGetWidth(scrollView.bounds)) && scrollView.contentSize.width < scrollView.contentOffset.x) ) {
+    if ((targetContentOffset->x <= 0 && scrollView.contentOffset.x < 0) ||(targetContentOffset->x >= (scrollView.contentSize.width - CGRectGetWidth(scrollView.bounds)) && scrollView.contentSize.width < scrollView.contentOffset.x) ) {
         return;
     }
     NSArray<UICollectionViewCell *> *visibleCells = self.collectionView.visibleCells;
@@ -213,7 +212,7 @@
         }
     }
     
-    NSLog(@"target : %lu", self.selectedIndex);
+//    NSLog(@"target : %lu", self.selectedIndex);
     
     indexPath = [NSIndexPath indexPathForRow:self.selectedIndex inSection:0];
     targetCell = [_collectionView cellForItemAtIndexPath:indexPath];
