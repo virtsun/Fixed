@@ -40,7 +40,7 @@ HFFiixableScrollViewDelegate>
     fii = [[HFFiixableScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - 0)];
     fii.dataSource = self;
     fii.delegate = self;
-    
+    fii.safeContentInset = UIEdgeInsetsMake(80, 0, 0, 0);
     __weak typeof(fii) weak_fii = fii;
     
     fii.scrollView.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{

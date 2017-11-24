@@ -59,6 +59,13 @@
         [_delegate fiixiable:!_fiexed];
     }
 }
+
+- (void)setSafeContentInset:(UIEdgeInsets)safeContentInset{
+    _safeContentInset = safeContentInset;
+    _scrollView.contentInset = safeContentInset;
+    [_scrollView setContentOffset:CGPointMake(0, -safeContentInset.top) animated:NO];
+}
+
 #pragma mark --
 #pragma mark -- 基本框架
 - (void)setupScene{
@@ -260,7 +267,7 @@ NSTimeInterval intervalStart;
             }else{
                 if (_scrollView.contentOffset.y > 0 && CGRectGetHeight(_scaleheaderView.bounds) > _minHeightScaleHeader){
                     [self reloadlayoutWithOffset:offsetY];
-                    [_scrollView setContentOffset:CGPointZero];
+                    [_scrollView setContentOffset:CGPointMake(0, -_safeContentInset.top)];
                 }else{
                     [_scrollView setContentOffset:CGPointMake(0, MAX(HFFiixableScrollViewMinOffsetY,offsetY))];
                 }
