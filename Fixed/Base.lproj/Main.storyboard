@@ -27,9 +27,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ywh-ji-r6r">
-                                <rect key="frame" x="160" y="298" width="72" height="30"/>
+                                <rect key="frame" x="143" y="297" width="107" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Scroll"/>
+                                <state key="normal" title="here we go"/>
                                 <connections>
                                     <action selector="openFiixable:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sMc-IB-sSI"/>
                                 </connections>
