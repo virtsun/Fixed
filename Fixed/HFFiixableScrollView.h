@@ -42,7 +42,6 @@
 
 @property (nonatomic, readonly, strong) UIScrollView *scrollView;
 @property (nonatomic, weak) UIScrollView *relationScrollView;
-
 @property (nonatomic) UIEdgeInsets safeContentInset;
 
 - (void)scrollToTop;

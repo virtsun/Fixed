@@ -59,10 +59,12 @@
         [_delegate fiixiableScrollView:self fixed:!_fiexed];
     }
 }
+
 - (void)setSafeContentInset:(UIEdgeInsets)safeContentInset{
     _scrollView.contentInset = _safeContentInset = safeContentInset;
     [_scrollView setContentOffset:CGPointMake(safeContentInset.left, - safeContentInset.top)];
 }
+
 #pragma mark --
 #pragma mark -- 基本框架
 - (void)setupScene{
